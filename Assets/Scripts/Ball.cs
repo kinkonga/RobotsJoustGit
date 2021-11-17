@@ -6,7 +6,10 @@ public class Ball : Entity
 {
     [SerializeField] ParticleSystem explose;
 
-
+    private void Update()
+    {
+        DoForward();
+    }
     public void activeParticule()
     {
         explose.Play();

@@ -15,6 +15,14 @@ public class Player : Entity
         actionLabel.text = " ";
         lifeLabel.text = Life.ToString();
     }
+    private void FixedUpdate()
+    {
+        DoForward();
+        DoRotation();
+        FinishAction();
+    }
+
+
     void OnMove()
     {
         if(NumberOfActions > actionList.Count)
@@ -50,6 +58,23 @@ public class Player : Entity
             
     }
 
+
+    public void DoAction(Action a)
+    {
+        switch (a.Type)
+        {
+            case "Forward":
+                Forward();
+                break;
+            case "Rotate":
+                RotationDelta = a.RotationDelta;
+                Rotate();
+                break;
+            case "Shoot":
+                Shoot();
+                break;
+        }
+    }
     public override void setLife(int v)
     {
         Life += v;

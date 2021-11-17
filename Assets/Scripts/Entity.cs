@@ -23,63 +23,45 @@ public class Entity : MonoBehaviour
 
     bool isInAction = false;
 
-    //INIT
-    private void Awake()
-    {
-      
-    }
+    
 
     //UPDATE
-    private void FixedUpdate()
+    protected void FinishAction()
     {
-
-        if (transform.position != targetPosition)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition,speed*Time.deltaTime);
-        }
-        if (transform.rotation != targetRotation)
-        {
-            transform.Rotate(new Vector3(0, rotationDelta * rotationSpeed * Time.deltaTime,0));
-        }
-        if(transform.position == targetPosition && transform.rotation == targetRotation && IsInAction && b==null)
+        if (transform.position == targetPosition && transform.rotation == targetRotation && IsInAction && b == null)
         {
             transform.position = TargetPosition;
             transform.rotation = TargetRotation;
             IsInAction = false;
-            ;
-
         }
-        if (b!=null && b.transform.position == b.TargetPosition && transform.rotation == targetRotation && IsInAction)
+        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == targetRotation && IsInAction)
         {
-            
-            
+
+
             b.activeParticule();
-            Destroy(b.gameObject,0.3f);
+            Destroy(b.gameObject, 0.3f);
             IsInAction = false;
-            
+
+        }
+    }
+    protected void DoRotation()
+    {
+        if (transform.rotation != targetRotation)
+        {
+            transform.Rotate(new Vector3(0, rotationDelta * rotationSpeed * Time.deltaTime, 0));
+        }
+    }
+    protected void DoForward()
+    {
+        if (transform.position != targetPosition)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         }
     }
 
-    //SWITCH ACTION
-    public void DoAction(Action a)
-    {
-        switch (a.Type)
-        {
-            case "Forward":
-                Forward();
-                break;
-            case "Rotate":
-                rotationDelta = a.RotationDelta;
-                Rotate();
-                break;
-            case "Shoot":
-                Shoot();
-                break;
-        }
-    }
 
     //ACTIONS
-    void Forward()
+    protected void Forward()
     {
 
         IsInAction = true;
@@ -95,12 +77,12 @@ public class Entity : MonoBehaviour
         }
 
     }
-    void Rotate()
+    protected void Rotate()
     {
         IsInAction = true;
         targetRotation = transform.rotation * Quaternion.Euler(0f, 90f * rotationDelta , 0f);
     }
-    void Shoot()
+    protected void Shoot()
     {
         IsInAction = true;
 
@@ -186,4 +168,7 @@ public class Entity : MonoBehaviour
     public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
     public Quaternion TargetRotation { get => targetRotation; set => targetRotation = value; }
     public int Life { get => life; set => life = value; }
+    public float RotationDelta { get => rotationDelta; set => rotationDelta = value; }
+    public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
+    public float Speed { get => speed; set => speed = value; }
 }

@@ -7,7 +7,7 @@ public class TileMap : MonoBehaviour
     [SerializeField] Vector2Int mapSize = new Vector2Int(10, 10);
     [SerializeField] GameObject tile;
     public GameObject[,] tileMap;
-
+    
     private void Awake()
     {
         tileMap = new GameObject[mapSize.x, mapSize.y];
