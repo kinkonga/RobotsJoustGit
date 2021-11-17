@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Player playerTwo;
     [SerializeField] TextMeshPro player1Label;
     [SerializeField] TextMeshPro player2Label;
+    public TextMeshPro player1LifeLabel;
+    public TextMeshPro player2LifeLabel;
 
 
     //REFERENCE
@@ -32,6 +34,10 @@ public class GameManager : MonoBehaviour
         inputActions = new PlayerAction();
         player1Label.text = "";
         player2Label.text = "";
+        playerOne.setLifeLabel(ref player1LifeLabel);
+        playerTwo.setLifeLabel(ref player2LifeLabel);
+        player1LifeLabel.text = playerOne.Life.ToString();
+        player2LifeLabel.text = playerTwo.Life.ToString();
     }
     private void OnEnable()
     {

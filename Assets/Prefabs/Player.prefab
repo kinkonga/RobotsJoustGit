@@ -129,3 +129,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 4810455956661189582, guid: fcf3674c8c8ff4841b9f21143354c2d3, type: 3}
+  lifeLabel: {fileID: 0}

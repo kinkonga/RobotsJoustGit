@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Entity : MonoBehaviour
 {
     string id = "Entity";
+    int life = 10;
     int numberOfActions = 5;
     float speed = 4f;
     float rotationSpeed = 125;
@@ -15,11 +17,12 @@ public class Entity : MonoBehaviour
     Quaternion targetRotation;
 
     [SerializeField] Ball ball;
+    TextMeshPro lifeLabel;
     Ball b;
-
     public List<Action> actionList = new List<Action>();
 
     bool isInAction = false;
+
 
 
     //INIT
@@ -103,18 +106,44 @@ public class Entity : MonoBehaviour
     void Shoot()
     {
         IsInAction = true;
+
         b = Instantiate(ball);
-        
         b.transform.position = transform.position;
         b.transform.rotation = transform.rotation;
-        b.TargetPosition = b.transform.position + getFowardVector() * 10;
+        int range = 10;
+        bool isHit = false;
+
+        //Get if Collide
+        for(int i =  1; i < range; i++)
+        {
+            var l = GetComponentInParent<GameManager>().listEntities;
+            foreach(Entity e in l)
+            {
+                Vector3 tmp = b.transform.position + getFowardVector() * i;
+                Debug.Log(this + " IN PRE ACTION Shoot Collide check -> " + tmp + " = "+ e.transform.position);
+                if (e.transform.position == b.transform.position + getFowardVector() * i)
+                {
+                    Debug.Log(" ------------------------------> Hit " + e);
+                    b.TargetPosition = b.transform.position + getFowardVector() * i;
+                    isHit = true;
+                    e.setLife(-1);
+                    Debug.Log(e + "life :"+ e.Life);
+                    
+                }
+            }
+            
+        }
+        if (!isHit)
+        {
+            b.TargetPosition = b.transform.position + getFowardVector() * 10;
+        }
+        
         Debug.Log(this + " IN ACTION Shoot from :" + b.transform.position + " -> " + b.TargetPosition);
     }
 
-
     private Vector3 getFowardVector()
     {
-        Debug.Log(this + " o : " + Mathf.Round(transform.rotation.eulerAngles.y));
+        
         switch (Mathf.Round(transform.rotation.eulerAngles.y))
         {
             case 0:
@@ -130,9 +159,19 @@ public class Entity : MonoBehaviour
                 return new Vector3(0, 0, 0);
         }
     }
+    public void setLife(int v)
+    {
+        Life += v;
+        lifeLabel.text = Life.ToString();
+    }
+    public void setLifeLabel(ref TextMeshPro l)
+    {
+        lifeLabel = l;
+    }
     public string Name { get => name; set => name = value; }
     public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
     public bool IsInAction { get => isInAction; set => isInAction = value; }
     public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
     public Quaternion TargetRotation { get => targetRotation; set => targetRotation = value; }
+    public int Life { get => life; set => life = value; }
 }
