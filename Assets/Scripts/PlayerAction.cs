@@ -20,16 +20,24 @@ public class @PlayerAction : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""46b420b8-e7e6-42f2-ad47-0efe448c10f0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Rotate"",
+                    ""name"": ""RotateR"",
                     ""type"": ""Button"",
                     ""id"": ""df79cc6e-9d6e-420f-9819-2a79830187f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""RotateL"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad2b4f21-601c-4268-8332-9606bcd0c565"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
@@ -57,6 +65,17 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""488152d5-9e45-4fb2-948e-c3e644968a52"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""89139d71-1fde-4fa3-a146-8d7892628800"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
@@ -67,37 +86,26 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""b66ebdaa-8444-4789-be94-34008d55e1a7"",
-                    ""path"": ""1DAxis(minValue=-90,maxValue=90)"",
+                    ""name"": """",
+                    ""id"": ""8e188750-0e6e-43a0-9d47-aba16aafeaab"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": true,
+                    ""action"": ""RotateR"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
-                    ""id"": ""9fe47803-4fd6-4161-970b-1d5dc85e2223"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""name"": """",
+                    ""id"": ""8d53be43-dfc4-40a8-8ce1-6bc21609a200"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotate"",
+                    ""action"": ""RotateL"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""6148c45b-a2f0-4b08-9536-31d793064d5f"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -108,15 +116,23 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Move"",
                     ""type"": ""Button"",
-                    ""id"": ""0283c200-ce0b-4dee-8cc2-2adfaaafb52c"",
+                    ""id"": ""b9124e6d-1922-46af-80e1-8e04eee305ff"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Rotate"",
+                    ""name"": ""RotateR"",
                     ""type"": ""Button"",
-                    ""id"": ""cd370cc5-d0cd-4472-946d-bb4ab26588f6"",
+                    ""id"": ""0ccb3847-8091-4a14-b657-bf61490b3daa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""RotateL"",
+                    ""type"": ""Button"",
+                    ""id"": ""982b6364-15e9-4aa4-bc85-2a06b599dc3e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
@@ -124,7 +140,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""27d94322-5c04-46da-968c-1fdb47d8d972"",
+                    ""id"": ""29ced7a5-4b16-4e30-aed8-55a27e5d0ec9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
@@ -133,7 +149,18 @@ public class @PlayerAction : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""f86d0329-0ad3-4c9f-8e8e-ecba8bcff8ab"",
+                    ""id"": ""c8a8bf52-27ca-40dd-a2a6-f53e070f4a86"",
+                    ""path"": ""<Keyboard>/numpad0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0637bf20-1f9a-4b7b-8ac7-19c5279ca990"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -144,7 +171,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""54f05660-3480-4c73-9acc-2421f903f100"",
+                    ""id"": ""a2eb4a4b-5ff9-4365-b333-2025908f30ce"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -154,37 +181,26 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""fe0d7705-3ca2-4639-a000-5cf96623bd1d"",
-                    ""path"": ""1DAxis(minValue=-90,maxValue=90)"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""3e58ba9b-7dad-41c0-a602-cc35b021c124"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""094f7281-a44a-4017-8a8c-c8396a48cb14"",
+                    ""name"": """",
+                    ""id"": ""58cb1d8d-9364-4c02-9095-a83fae62f152"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotate"",
+                    ""action"": ""RotateR"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a60ad14c-2eea-4f4e-be8c-a44b7a9544d5"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateL"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -194,12 +210,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         // Player1
         m_Player1 = asset.FindActionMap("Player1", throwIfNotFound: true);
         m_Player1_Move = m_Player1.FindAction("Move", throwIfNotFound: true);
-        m_Player1_Rotate = m_Player1.FindAction("Rotate", throwIfNotFound: true);
+        m_Player1_RotateR = m_Player1.FindAction("RotateR", throwIfNotFound: true);
+        m_Player1_RotateL = m_Player1.FindAction("RotateL", throwIfNotFound: true);
         m_Player1_Shoot = m_Player1.FindAction("Shoot", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
-        m_Player2_Rotate = m_Player2.FindAction("Rotate", throwIfNotFound: true);
+        m_Player2_RotateR = m_Player2.FindAction("RotateR", throwIfNotFound: true);
+        m_Player2_RotateL = m_Player2.FindAction("RotateL", throwIfNotFound: true);
         m_Player2_Shoot = m_Player2.FindAction("Shoot", throwIfNotFound: true);
     }
 
@@ -251,14 +269,16 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player1;
     private IPlayer1Actions m_Player1ActionsCallbackInterface;
     private readonly InputAction m_Player1_Move;
-    private readonly InputAction m_Player1_Rotate;
+    private readonly InputAction m_Player1_RotateR;
+    private readonly InputAction m_Player1_RotateL;
     private readonly InputAction m_Player1_Shoot;
     public struct Player1Actions
     {
         private @PlayerAction m_Wrapper;
         public Player1Actions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player1_Move;
-        public InputAction @Rotate => m_Wrapper.m_Player1_Rotate;
+        public InputAction @RotateR => m_Wrapper.m_Player1_RotateR;
+        public InputAction @RotateL => m_Wrapper.m_Player1_RotateL;
         public InputAction @Shoot => m_Wrapper.m_Player1_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Player1; }
         public void Enable() { Get().Enable(); }
@@ -272,9 +292,12 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnMove;
-                @Rotate.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotate;
-                @Rotate.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotate;
-                @Rotate.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotate;
+                @RotateR.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotateR;
+                @RotateR.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotateR;
+                @RotateR.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotateR;
+                @RotateL.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotateL;
+                @RotateL.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotateL;
+                @RotateL.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRotateL;
                 @Shoot.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnShoot;
@@ -285,9 +308,12 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Rotate.started += instance.OnRotate;
-                @Rotate.performed += instance.OnRotate;
-                @Rotate.canceled += instance.OnRotate;
+                @RotateR.started += instance.OnRotateR;
+                @RotateR.performed += instance.OnRotateR;
+                @RotateR.canceled += instance.OnRotateR;
+                @RotateL.started += instance.OnRotateL;
+                @RotateL.performed += instance.OnRotateL;
+                @RotateL.canceled += instance.OnRotateL;
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
@@ -300,14 +326,16 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player2;
     private IPlayer2Actions m_Player2ActionsCallbackInterface;
     private readonly InputAction m_Player2_Move;
-    private readonly InputAction m_Player2_Rotate;
+    private readonly InputAction m_Player2_RotateR;
+    private readonly InputAction m_Player2_RotateL;
     private readonly InputAction m_Player2_Shoot;
     public struct Player2Actions
     {
         private @PlayerAction m_Wrapper;
         public Player2Actions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player2_Move;
-        public InputAction @Rotate => m_Wrapper.m_Player2_Rotate;
+        public InputAction @RotateR => m_Wrapper.m_Player2_RotateR;
+        public InputAction @RotateL => m_Wrapper.m_Player2_RotateL;
         public InputAction @Shoot => m_Wrapper.m_Player2_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
@@ -321,9 +349,12 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMove;
-                @Rotate.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
-                @Rotate.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
-                @Rotate.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
+                @RotateR.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotateR;
+                @RotateR.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotateR;
+                @RotateR.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotateR;
+                @RotateL.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotateL;
+                @RotateL.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotateL;
+                @RotateL.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotateL;
                 @Shoot.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnShoot;
@@ -334,9 +365,12 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Rotate.started += instance.OnRotate;
-                @Rotate.performed += instance.OnRotate;
-                @Rotate.canceled += instance.OnRotate;
+                @RotateR.started += instance.OnRotateR;
+                @RotateR.performed += instance.OnRotateR;
+                @RotateR.canceled += instance.OnRotateR;
+                @RotateL.started += instance.OnRotateL;
+                @RotateL.performed += instance.OnRotateL;
+                @RotateL.canceled += instance.OnRotateL;
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
@@ -347,13 +381,15 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     public interface IPlayer1Actions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
+        void OnRotateR(InputAction.CallbackContext context);
+        void OnRotateL(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
+        void OnRotateR(InputAction.CallbackContext context);
+        void OnRotateL(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
     }
 }

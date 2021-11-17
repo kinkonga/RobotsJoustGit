@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour
     Quaternion targetRotation;
 
     [SerializeField] Ball ball;
-    TextMeshPro lifeLabel;
+    
     Ball b;
     public List<Action> actionList = new List<Action>();
 
@@ -39,7 +39,7 @@ public class Entity : MonoBehaviour
         }
         if (transform.rotation != targetRotation)
         {
-            transform.Rotate(new Vector3(0,rotationDelta * rotationSpeed * Time.deltaTime,0));
+            transform.Rotate(new Vector3(0, rotationDelta * rotationSpeed * Time.deltaTime,0));
         }
         if(transform.position == targetPosition && transform.rotation == targetRotation && IsInAction && b==null)
         {
@@ -173,16 +173,12 @@ public class Entity : MonoBehaviour
         }
         return true;
     }
-    public void setLife(int v)
+    public virtual void setLife(int v)
     {
         Life += v;
-        if (Life < 0) Life = 0;
-        lifeLabel.text = Life.ToString();
+        if (Life < 0) Life = 0; 
     }
-    public void setLifeLabel(ref TextMeshPro l)
-    {
-        lifeLabel = l;
-    }
+    
 
     public string Name { get => name; set => name = value; }
     public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }

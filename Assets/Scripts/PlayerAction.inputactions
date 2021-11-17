@@ -7,16 +7,24 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "46b420b8-e7e6-42f2-ad47-0efe448c10f0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
                 },
                 {
-                    "name": "Rotate",
+                    "name": "RotateR",
                     "type": "Button",
                     "id": "df79cc6e-9d6e-420f-9819-2a79830187f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "RotateL",
+                    "type": "Button",
+                    "id": "ad2b4f21-601c-4268-8332-9606bcd0c565",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
@@ -44,6 +52,17 @@
                 },
                 {
                     "name": "",
+                    "id": "488152d5-9e45-4fb2-948e-c3e644968a52",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "89139d71-1fde-4fa3-a146-8d7892628800",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -54,37 +73,26 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "b66ebdaa-8444-4789-be94-34008d55e1a7",
-                    "path": "1DAxis(minValue=-90,maxValue=90)",
+                    "name": "",
+                    "id": "8e188750-0e6e-43a0-9d47-aba16aafeaab",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
-                    "isComposite": true,
+                    "action": "RotateR",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "9fe47803-4fd6-4161-970b-1d5dc85e2223",
-                    "path": "<Keyboard>/q",
+                    "name": "",
+                    "id": "8d53be43-dfc4-40a8-8ce1-6bc21609a200",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
+                    "action": "RotateL",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "6148c45b-a2f0-4b08-9536-31d793064d5f",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -95,15 +103,23 @@
                 {
                     "name": "Move",
                     "type": "Button",
-                    "id": "0283c200-ce0b-4dee-8cc2-2adfaaafb52c",
+                    "id": "b9124e6d-1922-46af-80e1-8e04eee305ff",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
                 },
                 {
-                    "name": "Rotate",
+                    "name": "RotateR",
                     "type": "Button",
-                    "id": "cd370cc5-d0cd-4472-946d-bb4ab26588f6",
+                    "id": "0ccb3847-8091-4a14-b657-bf61490b3daa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "RotateL",
+                    "type": "Button",
+                    "id": "982b6364-15e9-4aa4-bc85-2a06b599dc3e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
@@ -111,7 +127,7 @@
                 {
                     "name": "Shoot",
                     "type": "Button",
-                    "id": "27d94322-5c04-46da-968c-1fdb47d8d972",
+                    "id": "29ced7a5-4b16-4e30-aed8-55a27e5d0ec9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
@@ -120,7 +136,18 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "f86d0329-0ad3-4c9f-8e8e-ecba8bcff8ab",
+                    "id": "c8a8bf52-27ca-40dd-a2a6-f53e070f4a86",
+                    "path": "<Keyboard>/numpad0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0637bf20-1f9a-4b7b-8ac7-19c5279ca990",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -131,7 +158,7 @@
                 },
                 {
                     "name": "",
-                    "id": "54f05660-3480-4c73-9acc-2421f903f100",
+                    "id": "a2eb4a4b-5ff9-4365-b333-2025908f30ce",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -141,37 +168,26 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "fe0d7705-3ca2-4639-a000-5cf96623bd1d",
-                    "path": "1DAxis(minValue=-90,maxValue=90)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "3e58ba9b-7dad-41c0-a602-cc35b021c124",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "094f7281-a44a-4017-8a8c-c8396a48cb14",
+                    "name": "",
+                    "id": "58cb1d8d-9364-4c02-9095-a83fae62f152",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
+                    "action": "RotateR",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a60ad14c-2eea-4f4e-be8c-a44b7a9544d5",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateL",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
