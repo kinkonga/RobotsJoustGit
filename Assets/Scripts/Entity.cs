@@ -23,8 +23,6 @@ public class Entity : MonoBehaviour
 
     bool isInAction = false;
 
-
-
     //INIT
     private void Awake()
     {
@@ -48,15 +46,17 @@ public class Entity : MonoBehaviour
             transform.position = TargetPosition;
             transform.rotation = TargetRotation;
             IsInAction = false;
-            Debug.Log(this + " OUT ACTION");
+            ;
 
         }
-        if (b!=null && b.transform.position == b.TargetPosition && IsInAction)
+        if (b!=null && b.transform.position == b.TargetPosition && transform.rotation == targetRotation && IsInAction)
         {
-     
-            Destroy(b.gameObject);
+            
+            
+            b.activeParticule();
+            Destroy(b.gameObject,0.3f);
             IsInAction = false;
-            Debug.Log(this + " OUT ACTION ");
+            
         }
     }
 
@@ -87,21 +87,18 @@ public class Entity : MonoBehaviour
         
         f = transform.position + getFowardVector();
  
-        Debug.Log(this+" IN PRE ACTION Foward -> Check Collision");
-        
+
         //Collision
-        if (f.x < GetComponentInParent<TileMap>().MapSize.x && 0 <= f.x && 0 <= f.z && f.z < GetComponentInParent<TileMap>().MapSize.y)
+        if (!isCollide(f))
         {
             targetPosition = f;
         }
 
-        Debug.Log(this + " IN ACTION Foward from :" + transform.position + " -> " + TargetPosition + " r: " + TargetRotation.eulerAngles + " f: " + f);
     }
     void Rotate()
     {
         IsInAction = true;
         targetRotation = transform.rotation * Quaternion.Euler(0f, 90f * rotationDelta , 0f);
-        Debug.Log(this + " IN ACTION Rotate from :" + transform.rotation.eulerAngles + " -> " + TargetRotation.eulerAngles + " p: "+ transform.position);
     }
     void Shoot()
     {
@@ -159,15 +156,34 @@ public class Entity : MonoBehaviour
                 return new Vector3(0, 0, 0);
         }
     }
+    private bool isCollide(Vector3 f)
+    {
+        if (f.x < GetComponentInParent<TileMap>().MapSize.x && 0 <= f.x && 0 <= f.z && f.z < GetComponentInParent<TileMap>().MapSize.y)
+        {
+            var l = GetComponentInParent<GameManager>().listEntities;
+            foreach (Entity e in l)
+            {
+                Debug.Log(this +"Check Collide : " + e + " " + e.targetPosition + " f " + f);
+                if (e.TargetPosition == f)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
     public void setLife(int v)
     {
         Life += v;
+        if (Life < 0) Life = 0;
         lifeLabel.text = Life.ToString();
     }
     public void setLifeLabel(ref TextMeshPro l)
     {
         lifeLabel = l;
     }
+
     public string Name { get => name; set => name = value; }
     public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
     public bool IsInAction { get => isInAction; set => isInAction = value; }

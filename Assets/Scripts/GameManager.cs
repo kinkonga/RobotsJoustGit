@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(PlayAction());
         }
+        
             
     }
     private void AddActionPlayerTwo(InputAction.CallbackContext obj)
@@ -136,12 +137,12 @@ public class GameManager : MonoBehaviour
     }
     
     //PLAY ACTION
-    private IEnumerator PlayAction() 
+    private IEnumerator PlayAction()
     {
         //PLAY ACTION
         isPlaying = true;
         Debug.Log("---------- IS PLAYING ----------");
-        for(int i = 0; playerOne.NumberOfActions > i; i++)
+        for (int i = 0; playerOne.NumberOfActions > i; i++)
         {
             playerOne.DoAction(playerOne.actionList[i]);
             playerTwo.DoAction(playerTwo.actionList[i]);
@@ -153,13 +154,30 @@ public class GameManager : MonoBehaviour
         }
         isPlaying = false;
         Debug.Log("---------- STOP PLAYING ----------");
+        LabelReset();
+        LifeCheck();
+    }
+
+
+
+    //METHODE
+    private void LifeCheck()
+    {
+        foreach(Entity e in listEntities)
+        {
+            if(e.Life <= 0)
+            {
+                Destroy(e.gameObject);
+            }
+        }
+    }
+    private void LabelReset()
+    {
         playerOne.actionList.Clear();
         playerTwo.actionList.Clear();
         player1Label.text = "";
-        player2Label.text = "";  
+        player2Label.text = "";
     }
-
-    //METHODE
     private void createPlayer(ref Player player, float x, float z, float r)
     {
         player = Instantiate(player);
