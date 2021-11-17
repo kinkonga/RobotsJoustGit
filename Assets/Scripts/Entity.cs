@@ -14,24 +14,21 @@ public class Entity : MonoBehaviour
     Vector3 targetPosition;
     Quaternion targetRotation;
 
-     
-    Ball b;
-
     [SerializeField] Ball ball;
-
+    Ball b;
 
     public List<Action> actionList = new List<Action>();
 
-   
-
-
     bool isInAction = false;
 
+
+    //INIT
     private void Awake()
     {
       
     }
 
+    //UPDATE
     private void FixedUpdate()
     {
 
@@ -53,14 +50,14 @@ public class Entity : MonoBehaviour
         }
         if (b!=null && b.transform.position == b.TargetPosition && IsInAction)
         {
-            transform.position = TargetPosition;
-            transform.rotation = TargetRotation;
+     
             Destroy(b.gameObject);
             IsInAction = false;
-            Debug.Log(this + " OUT ACTION");
+            Debug.Log(this + " OUT ACTION ");
         }
     }
 
+    //SWITCH ACTION
     public void DoAction(Action a)
     {
         switch (a.Type)
@@ -78,6 +75,7 @@ public class Entity : MonoBehaviour
         }
     }
 
+    //ACTIONS
     void Forward()
     {
 
@@ -96,32 +94,12 @@ public class Entity : MonoBehaviour
 
         Debug.Log(this + " IN ACTION Foward from :" + transform.position + " -> " + TargetPosition + " r: " + TargetRotation.eulerAngles + " f: " + f);
     }
-
-    private Vector3 getFowardVector()
-    {
-        switch (transform.rotation.eulerAngles.y)
-        {
-            case 0:
-                return new Vector3(0, 0, 1);
-            case 90:
-                return new Vector3(1, 0, 0);
-            case 180:
-                return new Vector3(0, 0, -1);   
-            case 270:
-                return new Vector3(-1, 0, 0);
-            default:
-                Debug.Log(this + " no orientation");
-                return new Vector3(0, 0, 0);
-        }
-    }
-
     void Rotate()
     {
         IsInAction = true;
         targetRotation = transform.rotation * Quaternion.Euler(0f, 90f * rotationDelta , 0f);
         Debug.Log(this + " IN ACTION Rotate from :" + transform.rotation.eulerAngles + " -> " + TargetRotation.eulerAngles + " p: "+ transform.position);
     }
-
     void Shoot()
     {
         IsInAction = true;
@@ -131,6 +109,26 @@ public class Entity : MonoBehaviour
         b.transform.rotation = transform.rotation;
         b.TargetPosition = b.transform.position + getFowardVector() * 10;
         Debug.Log(this + " IN ACTION Shoot from :" + b.transform.position + " -> " + b.TargetPosition);
+    }
+
+
+    private Vector3 getFowardVector()
+    {
+        Debug.Log(this + " o : " + Mathf.Round(transform.rotation.eulerAngles.y));
+        switch (Mathf.Round(transform.rotation.eulerAngles.y))
+        {
+            case 0:
+                return new Vector3(0, 0, 1);
+            case 90:
+                return new Vector3(1, 0, 0);
+            case 180:
+                return new Vector3(0, 0, -1);
+            case 270:
+                return new Vector3(-1, 0, 0);
+            default:
+                Debug.Log(this + " no orientation");
+                return new Vector3(0, 0, 0);
+        }
     }
     public string Name { get => name; set => name = value; }
     public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }

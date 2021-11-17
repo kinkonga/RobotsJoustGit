@@ -10,20 +10,19 @@ public class GameManager : MonoBehaviour
     //SERIALIZE FIELD
     [SerializeField] Player playerOne;
     [SerializeField] Player playerTwo;
-
-
-    //REFERENCE
-    TileMap map;
-
-    PlayerAction inputActions;
     [SerializeField] TextMeshPro player1Label;
     [SerializeField] TextMeshPro player2Label;
 
 
+    //REFERENCE
+    public List<Entity> listEntities = new List<Entity>();
+    TileMap map;
+    PlayerAction inputActions;
+    
     //STATES
     bool isPlaying = false;
 
-
+    //INIT
     private void Awake()
     {
         map = GetComponent<TileMap>();
@@ -34,7 +33,6 @@ public class GameManager : MonoBehaviour
         player1Label.text = "";
         player2Label.text = "";
     }
-
     private void OnEnable()
     {
         inputActions.Player1.Move.performed += AddActionPlayerOne;
@@ -51,7 +49,6 @@ public class GameManager : MonoBehaviour
         inputActions.Player2.Shoot.Enable();
 
     }
-
     private void OnDisable()
     {
         inputActions.Player1.Move.Disable();
@@ -63,7 +60,8 @@ public class GameManager : MonoBehaviour
 
 
     }
-     //INPUTS ACTION
+    
+    //INPUTS ACTION
     private void AddActionPlayerOne(InputAction.CallbackContext obj)
     {
         //ADD ACTION
@@ -130,6 +128,8 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    
+    //PLAY ACTION
     private IEnumerator PlayAction() 
     {
         //PLAY ACTION
@@ -140,23 +140,11 @@ public class GameManager : MonoBehaviour
             playerOne.DoAction(playerOne.actionList[i]);
             playerTwo.DoAction(playerTwo.actionList[i]);
 
-            while (playerOne.IsInAction && playerOne.IsInAction)
+            while (playerOne.IsInAction || playerTwo.IsInAction)
             {
                 yield return new WaitForSeconds(0.1f);
             }
         }
-        /*
-        foreach (Action a in playerOne.actionList)
-        {
-            //PLAY LOOP
-            playerOne.DoAction(a);
-
-            while (playerOne.IsInAction)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-        */
         isPlaying = false;
         Debug.Log("---------- STOP PLAYING ----------");
         playerOne.actionList.Clear();
@@ -165,6 +153,7 @@ public class GameManager : MonoBehaviour
         player2Label.text = "";  
     }
 
+    //METHODE
     private void createPlayer(ref Player player, float x, float z, float r)
     {
         player = Instantiate(player);
@@ -173,6 +162,7 @@ public class GameManager : MonoBehaviour
         player.transform.rotation = Quaternion.Euler(new Vector3(0, r, 0));
         player.TargetPosition = player.transform.position;
         player.TargetRotation = player.transform.rotation;
+        listEntities.Add(player);
 
     }
 
