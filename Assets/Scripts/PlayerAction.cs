@@ -24,7 +24,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""id"": ""46b420b8-e7e6-42f2-ad47-0efe448c10f0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Rotate"",
@@ -32,15 +32,15 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""id"": ""df79cc6e-9d6e-420f-9819-2a79830187f6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Shoot"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""bf55016d-b2bc-426b-a055-6bcfc6770d19"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -107,11 +107,11 @@ public class @PlayerAction : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""0283c200-ce0b-4dee-8cc2-2adfaaafb52c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Rotate"",
@@ -119,15 +119,15 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""id"": ""cd370cc5-d0cd-4472-946d-bb4ab26588f6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Shoot"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""27d94322-5c04-46da-968c-1fdb47d8d972"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [

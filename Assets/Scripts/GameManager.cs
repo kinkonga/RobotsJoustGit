@@ -47,26 +47,37 @@ public class GameManager : MonoBehaviour
         inputActions.Player2.Move.performed += AddActionPlayerTwo;
         inputActions.Player2.Rotate.performed += AddActionPlayerTwo;
         inputActions.Player2.Shoot.performed += AddActionPlayerTwo;
+        
         inputActions.Player1.Move.Enable();
         inputActions.Player1.Rotate.Enable();
         inputActions.Player1.Shoot.Enable();
         inputActions.Player2.Move.Enable();
         inputActions.Player2.Rotate.Enable();
         inputActions.Player2.Shoot.Enable();
+        
 
     }
     private void OnDisable()
     {
+        
         inputActions.Player1.Move.Disable();
         inputActions.Player1.Rotate.Disable();
         inputActions.Player1.Shoot.Disable();
         inputActions.Player2.Move.Disable();
         inputActions.Player2.Rotate.Disable();
         inputActions.Player2.Shoot.Disable();
-
+       
+      
 
     }
+
+    private void Update()
+    {
+        
+    }
     
+
+
     //INPUTS ACTION
     private void AddActionPlayerOne(InputAction.CallbackContext obj)
     {
@@ -99,8 +110,6 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(PlayAction());
         }
-        
-            
     }
     private void AddActionPlayerTwo(InputAction.CallbackContext obj)
     {
