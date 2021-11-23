@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6437720716993424516
+--- !u!1 &8281824289417964455
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6580524528714101672}
-  - component: {fileID: 6583969338673597904}
+  - component: {fileID: 8765451709561827613}
+  - component: {fileID: 296500646533929399}
   m_Layer: 0
-  m_Name: Tile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Name: Heart
+  m_TagString: Collectable
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6580524528714101672
+--- !u!4 &8765451709561827613
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6437720716993424516}
+  m_GameObject: {fileID: 8281824289417964455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8857684337050890366}
+  - {fileID: 7631433884882979231}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6583969338673597904
+--- !u!114 &296500646533929399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6437720716993424516}
+  m_GameObject: {fileID: 8281824289417964455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f28fa341dadbad49a05b4366fe53762, type: 3}
+  m_Script: {fileID: 11500000, guid: 395d90089b25aa14f8bc3feaf85fac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8189514816239823556
+  rotSpeed: 5
+  isRotate: 1
+--- !u!1 &9059694424265173940
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,45 +54,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8857684337050890366}
-  - component: {fileID: 5567306123859115995}
-  - component: {fileID: 7685388528572320529}
+  - component: {fileID: 7631433884882979231}
+  - component: {fileID: 3845215667927370603}
+  - component: {fileID: 3993716116111986170}
   m_Layer: 0
-  m_Name: Mesh
+  m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8857684337050890366
+--- !u!4 &7631433884882979231
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189514816239823556}
+  m_GameObject: {fileID: 9059694424265173940}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6580524528714101672}
+  m_Father: {fileID: 8765451709561827613}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5567306123859115995
+--- !u!33 &3845215667927370603
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189514816239823556}
-  m_Mesh: {fileID: 5048224785479312029, guid: 2fef407765afbc643bea817c608b738f, type: 3}
---- !u!23 &7685388528572320529
+  m_GameObject: {fileID: 9059694424265173940}
+  m_Mesh: {fileID: -3676728085192693422, guid: 2fef407765afbc643bea817c608b738f, type: 3}
+--- !u!23 &3993716116111986170
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189514816239823556}
+  m_GameObject: {fileID: 9059694424265173940}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -103,9 +105,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7522020245823381269, guid: 2fef407765afbc643bea817c608b738f, type: 3}
-  - {fileID: 2624709892545850444, guid: 2fef407765afbc643bea817c608b738f, type: 3}
-  - {fileID: -2143381301285529904, guid: 2fef407765afbc643bea817c608b738f, type: 3}
+  - {fileID: 977450404864735572, guid: 2fef407765afbc643bea817c608b738f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

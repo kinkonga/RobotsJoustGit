@@ -4,31 +4,36 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class Player : Entity
+public class Player : Movable
 {
+    
+    int numberOfActions = 5;
+
     TextMeshPro lifeLabel;
     TextMeshPro actionLabel;
+    UIActionBars actionBars;
 
+    public List<Action> actionList = new List<Action>();
 
     private void Start()
     {
         actionLabel.text = " ";
         lifeLabel.text = Life.ToString();
     }
-    private void FixedUpdate()
+
+    private void Update()
     {
-        DoForward();
-        DoRotation();
-        FinishAction();
+        updateLife();
     }
 
-
+    //INPUT HANDLER
     void OnMove()
     {
         if(NumberOfActions > actionList.Count)
         {
             actionList.Add(new Foward());
             actionLabel.text += "M";
+            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
         }
         
     }
@@ -38,6 +43,7 @@ public class Player : Entity
         {
             actionList.Add(new Rotate(1));
             actionLabel.text += "R";
+            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
         }     
     }
     void OnRotateL()
@@ -46,6 +52,7 @@ public class Player : Entity
         {
             actionList.Add(new Rotate(-1));
             actionLabel.text += "R";
+            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
         }
     }
     void OnShoot()
@@ -54,6 +61,7 @@ public class Player : Entity
         {
             actionList.Add(new Shoot());
             actionLabel.text += "S";
+            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
         }
             
     }
@@ -81,11 +89,23 @@ public class Player : Entity
         if (Life < 0) Life = 0;
         lifeLabel.text = Life.ToString();
     }
-    public void setLabels(ref TextMeshPro Life, ref TextMeshPro Action)
+    private void updateLife()
     {
-        lifeLabel = Life;
-        actionLabel = Action;
+        if (Life < 0) Life = 0;
+        lifeLabel.text = Life.ToString();
     }
+    public void setLabels(ref TextMeshPro life, ref TextMeshPro action, ref UIActionBars aBars )
+    {
+        lifeLabel = life;
+        actionLabel = action;
+        actionBars = aBars;
+    }
+    public void ResetLabel()
+    {
+        actionList.Clear();
+        actionBars.SetAllActive();
 
+    }
+    public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
 }
 

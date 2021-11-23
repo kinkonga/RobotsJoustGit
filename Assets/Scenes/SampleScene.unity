@@ -153,8 +153,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5603d3b8ac9ec514e8e10b22d244b17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 6437720716993424516, guid: 7312f374faf8077488d9932c874e255d, type: 3}
+  - {fileID: 61556538074900838, guid: 49888da691605674991932c02ebe70dc, type: 3}
+  - {fileID: 5359385577239651454, guid: a8b34fd3e886df4409549421d275209f, type: 3}
   mapSize: {x: 10, y: 10}
-  tile: {fileID: 6437720716993424516, guid: 7312f374faf8077488d9932c874e255d, type: 3}
+  nbrWall: 5
+  walls:
+  - {fileID: 3979418452818164578, guid: ebae742960723c84692449bf799f8c2f, type: 3}
+  nbrBonus: 6
+  bonus:
+  - {fileID: 8281824289417964455, guid: 4c0fdc7bae5f7ba458744db6ca6187c8, type: 3}
+  - {fileID: 400169817780584267, guid: 8688f5a60b6585848919b411ff9a712b, type: 3}
 --- !u!114 &308399733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,12 +177,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a851b88ac135cb45ba47d331febfd2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOne: {fileID: 1589120837382648779, guid: 83d58dd56fcbe36418a91f78df34829e, type: 3}
-  playerTwo: {fileID: 4082223435524439039, guid: 25809a2fda4c52f4a8c97dd9149453f0, type: 3}
+  playerOne: {fileID: 2605068084061092919, guid: 6c22f019e4f70254e85befb29ec82fe6, type: 3}
+  playerTwo: {fileID: 885267711090976132, guid: cddf10d2a8044224fb5580ef6aa23a5e, type: 3}
   player1Label: {fileID: 534760657}
   player2Label: {fileID: 1119941854}
   player1LifeLabel: {fileID: 1481055579}
   player2LifeLabel: {fileID: 1678335550}
+  player1ActionBar: {fileID: 1961054621}
+  player2ActionBar: {fileID: 1768573661}
   listEntities: []
 --- !u!4 &308399734
 Transform:
@@ -189,6 +201,8 @@ Transform:
   - {fileID: 1119941853}
   - {fileID: 1481055581}
   - {fileID: 1678335552}
+  - {fileID: 1961054620}
+  - {fileID: 1768573660}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -209,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &534760656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -555,7 +569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119941853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -875,8 +889,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: 10, y: 1}
+  m_AnchoredPosition: {x: 2, y: 0.5}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1678335549
 GameObject:
@@ -1037,7 +1051,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678335549}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 308399734}
@@ -1045,9 +1059,57 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 10, y: 1}
+  m_AnchoredPosition: {x: 10, y: 0.5}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1768573659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1768573660}
+  - component: {fileID: 1768573661}
+  m_Layer: 0
+  m_Name: Player2UIActionBars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1768573660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768573659}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 308399734}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1768573661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768573659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd3415d25e619e44aba96030871695d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 6347454286496760848, guid: b85b497383ecfa64fb8d1a8ba8c8a9ec, type: 3}
+  nbrBar: 5
+  position: {x: 10, y: 0.5}
+  rotation: 90
+  gap: 0.2
 --- !u!1 &1807158827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,3 +1141,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+--- !u!1 &1961054619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961054620}
+  - component: {fileID: 1961054621}
+  m_Layer: 0
+  m_Name: Player1UIActionBars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1961054620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961054619}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 308399734}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1961054621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961054619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd3415d25e619e44aba96030871695d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 6347454286496760848, guid: b85b497383ecfa64fb8d1a8ba8c8a9ec, type: 3}
+  nbrBar: 5
+  position: {x: 0.5, y: 10}
+  rotation: 0
+  gap: 0.2

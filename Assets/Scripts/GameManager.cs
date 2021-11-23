@@ -14,12 +14,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshPro player2Label;
     [SerializeField] TextMeshPro player1LifeLabel;
     [SerializeField] TextMeshPro player2LifeLabel;
+    [SerializeField] UIActionBars player1ActionBar;
+    [SerializeField] UIActionBars player2ActionBar;
 
 
     //REFERENCE
     public List<Entity> listEntities = new List<Entity>();
     TileMap map;
-    //PlayerAction inputActions;
     
     //STATES
     bool isPlaying = false;
@@ -32,8 +33,8 @@ public class GameManager : MonoBehaviour
         createPlayer(ref playerOne, 3, 3, 0);
         createPlayer(ref playerTwo, 6, 6, 180);
         
-        playerOne.setLabels(ref player1LifeLabel, ref player1Label);
-        playerTwo.setLabels(ref player2LifeLabel, ref player2Label);
+        playerOne.setLabels(ref player1LifeLabel, ref player1Label, ref player1ActionBar);
+        playerTwo.setLabels(ref player2LifeLabel, ref player2Label, ref player2ActionBar);
       
     }
     
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("---------- STOP PLAYING ----------");
         LabelReset();
         LifeCheck();
+
     }
 
 
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
     //METHODE
     private void LifeCheck()
     {
-        foreach(Entity e in listEntities)
+        foreach(Movable e in listEntities)
         {
             if(e.Life <= 0)
             {
@@ -85,8 +87,9 @@ public class GameManager : MonoBehaviour
     }
     private void LabelReset()
     {
-        playerOne.actionList.Clear();
-        playerTwo.actionList.Clear();
+        playerOne.ResetLabel();
+        playerTwo.ResetLabel();
+        
         player1Label.text = "";
         player2Label.text = "";
     }

@@ -6,121 +6,17 @@ using TMPro;
 
 public class Entity : MonoBehaviour
 {
-    string id = "Entity";
-    int life = 10;
-    int numberOfActions = 5;
-    float speed = 4f;
-    float rotationSpeed = 125;
-    float rotationDelta = 0;
-
-    Vector3 targetPosition;
-    Quaternion targetRotation;
-
-    [SerializeField] Ball ball;
     
-    Ball b;
-    public List<Action> actionList = new List<Action>();
-
-    bool isInAction = false;
-
     
+
+
 
     //UPDATE
-    protected void FinishAction()
+    protected void rotate(float speed)
     {
-        if (transform.position == targetPosition && transform.rotation == targetRotation && IsInAction && b == null)
-        {
-            transform.position = TargetPosition;
-            transform.rotation = TargetRotation;
-            IsInAction = false;
-        }
-        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == targetRotation && IsInAction)
-        {
-
-
-            b.activeParticule();
-            Destroy(b.gameObject, 0.3f);
-            IsInAction = false;
-
-        }
+        transform.Rotate(new Vector3(0, 10*speed*Time.deltaTime, 0));
     }
-    protected void DoRotation()
-    {
-        if (transform.rotation != targetRotation)
-        {
-            transform.Rotate(new Vector3(0, rotationDelta * rotationSpeed * Time.deltaTime, 0));
-        }
-    }
-    protected void DoForward()
-    {
-        if (transform.position != targetPosition)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        }
-    }
-
-
-    //ACTIONS
-    protected void Forward()
-    {
-
-        IsInAction = true;
-        Vector3 f = new Vector3();
-        
-        f = transform.position + getFowardVector();
- 
-
-        //Collision
-        if (!isCollide(f))
-        {
-            targetPosition = f;
-        }
-
-    }
-    protected void Rotate()
-    {
-        IsInAction = true;
-        targetRotation = transform.rotation * Quaternion.Euler(0f, 90f * rotationDelta , 0f);
-    }
-    protected void Shoot()
-    {
-        IsInAction = true;
-
-        b = Instantiate(ball);
-        b.transform.position = transform.position;
-        b.transform.rotation = transform.rotation;
-        int range = 10;
-        bool isHit = false;
-
-        //Get if Collide
-        for(int i =  1; i < range; i++)
-        {
-            var l = GetComponentInParent<GameManager>().listEntities;
-            foreach(Entity e in l)
-            {
-                Vector3 tmp = b.transform.position + getFowardVector() * i;
-                Debug.Log(this + " IN PRE ACTION Shoot Collide check -> " + tmp + " = "+ e.transform.position);
-                if (e.transform.position == b.transform.position + getFowardVector() * i)
-                {
-                    Debug.Log(" ------------------------------> Hit " + e);
-                    b.TargetPosition = b.transform.position + getFowardVector() * i;
-                    isHit = true;
-                    e.setLife(-1);
-                    Debug.Log(e + "life :"+ e.Life);
-                    
-                }
-            }
-            
-        }
-        if (!isHit)
-        {
-            b.TargetPosition = b.transform.position + getFowardVector() * 10;
-        }
-        
-        Debug.Log(this + " IN ACTION Shoot from :" + b.transform.position + " -> " + b.TargetPosition);
-    }
-
-    private Vector3 getFowardVector()
+    protected Vector3 getFowardVector()
     {
         
         switch (Mathf.Round(transform.rotation.eulerAngles.y))
@@ -138,37 +34,5 @@ public class Entity : MonoBehaviour
                 return new Vector3(0, 0, 0);
         }
     }
-    private bool isCollide(Vector3 f)
-    {
-        if (f.x < GetComponentInParent<TileMap>().MapSize.x && 0 <= f.x && 0 <= f.z && f.z < GetComponentInParent<TileMap>().MapSize.y)
-        {
-            var l = GetComponentInParent<GameManager>().listEntities;
-            foreach (Entity e in l)
-            {
-                Debug.Log(this +"Check Collide : " + e + " " + e.targetPosition + " f " + f);
-                if (e.TargetPosition == f)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        return true;
-    }
-    public virtual void setLife(int v)
-    {
-        Life += v;
-        if (Life < 0) Life = 0; 
-    }
     
-
-    public string Name { get => name; set => name = value; }
-    public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
-    public bool IsInAction { get => isInAction; set => isInAction = value; }
-    public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
-    public Quaternion TargetRotation { get => targetRotation; set => targetRotation = value; }
-    public int Life { get => life; set => life = value; }
-    public float RotationDelta { get => rotationDelta; set => rotationDelta = value; }
-    public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
-    public float Speed { get => speed; set => speed = value; }
 }
