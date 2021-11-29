@@ -11,6 +11,7 @@ public class Player : Movable
     int numberPlanAction = 0;
 
     int energy = 20;
+    int precostEnergy = 20;
 
     TextMeshProUGUI lifeLabel;
     TextMeshProUGUI energyLabel;
@@ -20,7 +21,7 @@ public class Player : Movable
     ActionPool actionPool;
     [SerializeField] int playerNbr;
     
-
+    bool isReady = false;
    
     public List<Action> actionList = new List<Action>();
 
@@ -43,6 +44,15 @@ public class Player : Movable
     {
         updateLife();
         updateEnergy();
+
+        if (actionList.Count == numberOfActions)
+        {
+            isReady = true;
+        }
+        else if (precostEnergy == 0)
+        {
+            isReady = true;
+        }
     }
 
     //INPUT HANDLER
@@ -65,12 +75,19 @@ public class Player : Movable
 
     private void DoActionPool(int i)
     {
-        if (NumberOfActions > numberPlanAction && !GetComponentInParent<GameManager>().IsPlaying)
+       
+        precostEnergy -= actionPool.GetAction(i).EnergyCost;
+        Debug.Log(precostEnergy);
+        if (NumberOfActions > numberPlanAction && precostEnergy >= 0 && !GetComponentInParent<GameManager>().IsPlaying)
         {
             actionList.Add(actionPool.GetAction(i));
             actionHandler.AddAction(actionPool.GetAction(i));
             numberPlanAction++;
             actionBars.SetNbrActive(NumberOfActions - numberPlanAction);
+        }
+        else
+        {
+            precostEnergy += actionPool.GetAction(i).EnergyCost;
         }
     }
 
@@ -134,9 +151,12 @@ public class Player : Movable
         numberPlanAction = 0;
         actionList.Clear();
         actionBars.SetAllActive();
+        precostEnergy = energy;
+        isReady = false;
 
     }
     public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
     public int Energy { get => energy; set => energy = value; }
+    public bool IsReady { get => isReady; set => isReady = value; }
 }
 

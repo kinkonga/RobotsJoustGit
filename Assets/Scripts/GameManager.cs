@@ -62,11 +62,9 @@ public class GameManager : MonoBehaviour
         {
             if (player1.actionList.Count == player1.NumberOfActions || player2.actionList.Count == player2.NumberOfActions)
             {
-                //launch Timer
                 isTimer = true;
                 timerText.text = timer.ToString();
                 lastTimer = Time.realtimeSinceStartup;
-
             }
         }
         if (isTimer)
@@ -79,21 +77,15 @@ public class GameManager : MonoBehaviour
             }
             if(timer == 0)
             {
-                actionHandler.Print();
-                isPlaying = true;
-                Debug.Log("----- IS PLAYING ----- TURN : " + nbrOfTurn);
-                ResetTimer();
+                LaunchPlay();
             }
         }
         
 
         //Si les deux joueurs ont prevu ttes leurs action -> Lance la phase d'action
-        if (actionHandler.Size() == player1.NumberOfActions + player2.NumberOfActions && !isPlaying)
+        if (player1.IsReady && player2.IsReady && !isPlaying)
         {
-            actionHandler.Print();
-            isPlaying = true;
-            Debug.Log("----- IS PLAYING ----- TURN : " + nbrOfTurn);
-            ResetTimer();
+            LaunchPlay();
         }
 
         //Si il n'y a pas d'action en cours faire la prochaine action.
@@ -113,17 +105,29 @@ public class GameManager : MonoBehaviour
             //fin de phase d'action
             else
             {
-                isPlaying = false;
-                Debug.Log("----- OUT PLAYING -----");
-                activeAction = 0;
-                actionHandler.ClearAction();
-                LabelReset();
-                LifeCheck();
-                player1.setEnergy(3);
-                player2.setEnergy(3);
-                nbrOfTurn++;
+                OutPlay();
             }
         }
+    }
+
+    private void OutPlay()
+    {
+        isPlaying = false;
+        Debug.Log("----- OUT PLAYING -----");
+
+        LifeCheck();
+        player1.setEnergy(3);
+        player2.setEnergy(3);
+        LabelReset();
+        nbrOfTurn++;
+    }
+
+    private void LaunchPlay()
+    {
+        actionHandler.Print();
+        isPlaying = true;
+        Debug.Log("----- IS PLAYING ----- TURN : " + nbrOfTurn);
+        ResetTimer();
     }
 
     private void ResetTimer()
@@ -147,6 +151,8 @@ public class GameManager : MonoBehaviour
     }
     private void LabelReset()
     {
+        activeAction = 0;
+        actionHandler.ClearAction();
         player1.ResetLabel();
         player2.ResetLabel();
         

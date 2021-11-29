@@ -37,7 +37,7 @@ public class Action
 
     public virtual void Print()
     {
-        Debug.Log("Player : " + player + " / Action : " + Type);
+        Debug.Log("Player : " + player + " / Action : " + Type + " / EnergyCost : "+ EnergyCost);
     }
 
     public string Type { get => type; set => type = value; }
@@ -83,7 +83,7 @@ public class Rotate : Action
     }
     public override void Print()
     {
-        Debug.Log("Player : " + Player + " / Action : " + Type + " / Delta : " + RotationDelta);
+        Debug.Log("Player : " + Player + " / Action : " + Type + " / Delta : " + RotationDelta + " / EnergyCost : " + EnergyCost);
     }
 }
 
