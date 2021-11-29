@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ActionPool : MonoBehaviour
 {
     [SerializeField] List<GameObject> actionBox;
     [SerializeField] List<Texture2D> listTextures;
     Action[] pool;
-    int poolSize = 5;
+    int poolSize = 4;
 
     private void Awake()
     {
@@ -21,8 +22,7 @@ public class ActionPool : MonoBehaviour
         pool[1] = new Rotate(p, 1);
         pool[2] = new Rotate(p,-1);
         pool[3] = new Shoot(p);
-        pool[4] = new Empty();
-
+       
         setActionsIcon();
     }
 
@@ -55,7 +55,7 @@ public class ActionPool : MonoBehaviour
                     actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[3];
                     break;
             }
-            
+            actionBox[i].transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = pool[i].EnergyCost.ToString();
         }
         Debug.Log("OK -> Action Icons");
     }

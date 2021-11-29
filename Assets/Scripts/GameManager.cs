@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     bool isPlaying = false;
     int activeAction = 0;
 
+    public bool IsPlaying { get => isPlaying; set => isPlaying = value; }
+
 
     //INIT
     private void Awake()
@@ -117,6 +119,8 @@ public class GameManager : MonoBehaviour
                 actionHandler.ClearAction();
                 LabelReset();
                 LifeCheck();
+                player1.setEnergy(3);
+                player2.setEnergy(3);
                 nbrOfTurn++;
             }
         }

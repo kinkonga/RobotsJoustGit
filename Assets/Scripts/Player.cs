@@ -65,7 +65,7 @@ public class Player : Movable
 
     private void DoActionPool(int i)
     {
-        if (NumberOfActions > numberPlanAction)
+        if (NumberOfActions > numberPlanAction && !GetComponentInParent<GameManager>().IsPlaying)
         {
             actionList.Add(actionPool.GetAction(i));
             actionHandler.AddAction(actionPool.GetAction(i));
