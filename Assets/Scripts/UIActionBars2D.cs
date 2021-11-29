@@ -35,11 +35,9 @@ public class UIActionBars2D : MonoBehaviour
 
     public void SetNbrActive(int a)
     {
-        Debug.Log("set nbr act");
         for (int i = 0; listBar.Length > i; i++)
         {
             Image c = listBar[i].GetComponent<Image>();
-            Debug.Log("debug : "+c);
             if (a-1 < i)
             {
 
@@ -53,11 +51,11 @@ public class UIActionBars2D : MonoBehaviour
     }
     public void SetAllActive()
     {
-        Debug.Log("set all act");
+        
         for (int i = 0; listBar.Length > i; i++)
         {
             Image c = listBar[i].GetComponent<Image>();
-            Debug.Log("debug : " + c);
+            
 
             listBar[i].GetComponent<Image>().color = unuseColor;
         }

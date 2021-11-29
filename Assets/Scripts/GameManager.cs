@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Player player2;
     [SerializeField] TextMeshProUGUI player1Life;
     [SerializeField] TextMeshProUGUI player2Life;
+    [SerializeField] TextMeshProUGUI player1Energy;
+    [SerializeField] TextMeshProUGUI player2Energy;
     [SerializeField] UIActionBars2D player1ActionBars;
     [SerializeField] UIActionBars2D player2ActionBars;
     [SerializeField] ActionPool player1ActionPool;
@@ -46,8 +48,8 @@ public class GameManager : MonoBehaviour
         createPlayer(ref player1, map.getPlayerStartPosition("Player1"), 0);
         createPlayer(ref player2, map.getPlayerStartPosition("Player2"), 180);
         
-        player1.setLabels(ref player1Life, ref player1ActionBars, ref actionHandler, ref player1ActionPool);
-        player2.setLabels(ref player2Life, ref player2ActionBars, ref actionHandler, ref player2ActionPool);
+        player1.setLabels(ref player1Life, ref player1ActionBars, ref actionHandler, ref player1ActionPool, ref player1Energy);
+        player2.setLabels(ref player2Life, ref player2ActionBars, ref actionHandler, ref player2ActionPool, ref player2Energy);
       
     }
     
@@ -75,23 +77,25 @@ public class GameManager : MonoBehaviour
             }
             if(timer == 0)
             {
-                isTimer = false;
-                timer = 5;
-                timerText.text = "--";
+                actionHandler.Print();
                 isPlaying = true;
+                Debug.Log("----- IS PLAYING ----- TURN : " + nbrOfTurn);
+                ResetTimer();
             }
         }
-       
+        
+
         //Si les deux joueurs ont prevu ttes leurs action -> Lance la phase d'action
-        if(actionHandler.Size() == player1.NumberOfActions + player2.NumberOfActions && !isPlaying)
+        if (actionHandler.Size() == player1.NumberOfActions + player2.NumberOfActions && !isPlaying)
         {
             actionHandler.Print();
             isPlaying = true;
-            Debug.Log("----- IS PLAYING -----");
+            Debug.Log("----- IS PLAYING ----- TURN : " + nbrOfTurn);
+            ResetTimer();
         }
 
         //Si il n'y a pas d'action en cours faire la prochaine action.
-        if(!player1.IsInAction && !player2.IsInAction && isPlaying)
+        if (!player1.IsInAction && !player2.IsInAction && isPlaying)
         {
 
             Action a = actionHandler.GetAction(activeAction);
@@ -116,6 +120,13 @@ public class GameManager : MonoBehaviour
                 nbrOfTurn++;
             }
         }
+    }
+
+    private void ResetTimer()
+    {
+        isTimer = false;
+        timer = 5;
+        timerText.text = "--";
     }
 
 

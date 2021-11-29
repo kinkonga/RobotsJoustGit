@@ -8,7 +8,8 @@ public class Action
     Player player;
     string type; // Type d'action
     [SerializeField] List<GameObject> actionIcons; //list des Icones
-    // Cout en energie ?
+
+    int energyCost;
     
     // - MOUVEMENT -
     float rotationDelta;
@@ -42,6 +43,7 @@ public class Action
     public string Type { get => type; set => type = value; }
     public float RotationDelta { get => rotationDelta; set => rotationDelta = value; }
     public Player Player { get => player; set => player = value; }
+    public int EnergyCost { get => energyCost; set => energyCost = value; }
 }
 
 public class Forward : Action
@@ -49,10 +51,12 @@ public class Forward : Action
     public Forward()
     {
         Type = "Forward";
+        EnergyCost = 1;
     }
     public Forward(Player p)
     {
         Type = "Forward";
+        EnergyCost = 1;
         Player = p;
     }
 }
@@ -62,6 +66,7 @@ public class Rotate : Action
     public Rotate(float r)
     {
         Type = "Rotate";
+        EnergyCost = 1;
         RotationDelta = r;
     }
     public Rotate(Player p, float r)
@@ -69,6 +74,7 @@ public class Rotate : Action
         
         RotationDelta = r;
         Player = p;
+        EnergyCost = 1;
 
         if (RotationDelta == 1)
             Type = "RotateR";
@@ -87,11 +93,13 @@ public class Shoot : Action
     public Shoot()
     {
         Type = "Shoot";
+        EnergyCost = 2;
     }
     public Shoot(Player p)
     {
         Type = "Shoot";
         Player = p;
+        EnergyCost = 2;
     }
 }
 public class Empty : Action

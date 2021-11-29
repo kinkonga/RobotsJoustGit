@@ -10,7 +10,10 @@ public class Player : Movable
     int numberOfActions = 5;
     int numberPlanAction = 0;
 
+    int energy = 20;
+
     TextMeshProUGUI lifeLabel;
+    TextMeshProUGUI energyLabel;
     TextMeshPro actionLabel;
     UIActionBars2D actionBars;
     ActionHandler actionHandler;
@@ -39,6 +42,7 @@ public class Player : Movable
     private void Update()
     {
         updateLife();
+        updateEnergy();
     }
 
     //INPUT HANDLER
@@ -73,6 +77,8 @@ public class Player : Movable
     public void DoAction(Action a)
     {
         
+        setEnergy(-a.EnergyCost);
+   
         switch (a.Type)
         {
             case "Forward":
@@ -96,15 +102,29 @@ public class Player : Movable
         Life += v;
         if (Life < 0) Life = 0;
         lifeLabel.text = Life.ToString();
+        lifeLabel.GetComponent<BumpScale>().activeBump();
+    }
+    public void setEnergy(int e)
+    {
+        Energy += e;
+        if (Energy < 0) Energy = 0;
+        energyLabel.text = Energy.ToString();
+        energyLabel.GetComponent<BumpScale>().activeBump();
     }
     private void updateLife()
     {
         if (Life < 0) Life = 0;
         lifeLabel.text = Life.ToString();
     }
-    public void setLabels(ref TextMeshProUGUI life, ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool)
+    private void updateEnergy()
+    {
+        if (Energy < 0) Energy = 0;
+        energyLabel.text = Energy.ToString();
+    }
+    public void setLabels(ref TextMeshProUGUI life, ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool, ref TextMeshProUGUI e)
     {
         lifeLabel = life;
+        energyLabel = e;
         actionBars = aBars2D;
         actionHandler = aHandler;
         actionPool = aPool;
@@ -117,5 +137,6 @@ public class Player : Movable
 
     }
     public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
+    public int Energy { get => energy; set => energy = value; }
 }
 
