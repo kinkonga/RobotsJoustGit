@@ -8,17 +8,32 @@ public class Player : Movable
 {
     
     int numberOfActions = 5;
+    int numberPlanAction = 0;
 
-    TextMeshPro lifeLabel;
+    TextMeshProUGUI lifeLabel;
     TextMeshPro actionLabel;
-    UIActionBars actionBars;
+    UIActionBars2D actionBars;
+    ActionHandler actionHandler;
+    ActionPool actionPool;
+    [SerializeField] int playerNbr;
+    
 
+   
     public List<Action> actionList = new List<Action>();
 
+
+    private void Awake()
+    {
+
+    }
     private void Start()
     {
-        actionLabel.text = " ";
+
         lifeLabel.text = Life.ToString();
+        actionPool.setDefaultAction(this);
+        actionPool.Print();
+        actionBars.SetAllActive();
+
     }
 
     private void Update()
@@ -29,52 +44,45 @@ public class Player : Movable
     //INPUT HANDLER
     void OnMove()
     {
-        if(NumberOfActions > actionList.Count)
-        {
-            actionList.Add(new Foward());
-            actionLabel.text += "M";
-            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
-        }
-        
+        DoActionPool(0);
     }
     void OnRotateR()
     {
-        if (NumberOfActions > actionList.Count)
-        {
-            actionList.Add(new Rotate(1));
-            actionLabel.text += "R";
-            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
-        }     
+        DoActionPool(1);
     }
     void OnRotateL()
     {
-        if (NumberOfActions > actionList.Count)
-        {
-            actionList.Add(new Rotate(-1));
-            actionLabel.text += "R";
-            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
-        }
+        DoActionPool(2);
     }
     void OnShoot()
     {
-        if (NumberOfActions > actionList.Count)
-        {
-            actionList.Add(new Shoot());
-            actionLabel.text += "S";
-            actionBars.SetNbrActive(NumberOfActions - actionList.Count);
-        }
-            
+        DoActionPool(3);
     }
 
+    private void DoActionPool(int i)
+    {
+        if (NumberOfActions > numberPlanAction)
+        {
+            actionList.Add(actionPool.GetAction(i));
+            actionHandler.AddAction(actionPool.GetAction(i));
+            numberPlanAction++;
+            actionBars.SetNbrActive(NumberOfActions - numberPlanAction);
+        }
+    }
 
     public void DoAction(Action a)
     {
+        
         switch (a.Type)
         {
             case "Forward":
                 Forward();
                 break;
-            case "Rotate":
+            case "RotateR":
+                RotationDelta = a.RotationDelta;
+                Rotate();
+                break;
+            case "RotateL":
                 RotationDelta = a.RotationDelta;
                 Rotate();
                 break;
@@ -94,14 +102,16 @@ public class Player : Movable
         if (Life < 0) Life = 0;
         lifeLabel.text = Life.ToString();
     }
-    public void setLabels(ref TextMeshPro life, ref TextMeshPro action, ref UIActionBars aBars )
+    public void setLabels(ref TextMeshProUGUI life, ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool)
     {
         lifeLabel = life;
-        actionLabel = action;
-        actionBars = aBars;
+        actionBars = aBars2D;
+        actionHandler = aHandler;
+        actionPool = aPool;
     }
     public void ResetLabel()
     {
+        numberPlanAction = 0;
         actionList.Clear();
         actionBars.SetAllActive();
 

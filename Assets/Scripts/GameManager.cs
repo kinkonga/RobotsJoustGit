@@ -8,70 +8,115 @@ public class GameManager : MonoBehaviour
 {
 
     //SERIALIZE FIELD
-    [SerializeField] Player playerOne;
-    [SerializeField] Player playerTwo;
-    [SerializeField] TextMeshPro player1Label;
-    [SerializeField] TextMeshPro player2Label;
-    [SerializeField] TextMeshPro player1LifeLabel;
-    [SerializeField] TextMeshPro player2LifeLabel;
-    [SerializeField] UIActionBars player1ActionBar;
-    [SerializeField] UIActionBars player2ActionBar;
+    [SerializeField] Player player1;
+    [SerializeField] Player player2;
+    [SerializeField] TextMeshProUGUI player1Life;
+    [SerializeField] TextMeshProUGUI player2Life;
+    [SerializeField] UIActionBars2D player1ActionBars;
+    [SerializeField] UIActionBars2D player2ActionBars;
+    [SerializeField] ActionPool player1ActionPool;
+    [SerializeField] ActionPool player2ActionPool;
+    [SerializeField] TextMeshProUGUI timerText;
+
+    int nbrOfTurn;
 
 
     //REFERENCE
     public List<Entity> listEntities = new List<Entity>();
     TileMap map;
-    
+    ActionHandler actionHandler;
+
     //STATES
+    bool isTimer = false;
+    int timer = 5;
+    float lastTimer = 0;
     bool isPlaying = false;
+    int activeAction = 0;
+
 
     //INIT
     private void Awake()
     {
+        //Mise en Place des references 
+        actionHandler = GetComponent<ActionHandler>();
         map = GetComponent<TileMap>();
         
-        createPlayer(ref playerOne, 3, 3, 0);
-        createPlayer(ref playerTwo, 6, 6, 180);
+        //Creation des joueurs
         
-        playerOne.setLabels(ref player1LifeLabel, ref player1Label, ref player1ActionBar);
-        playerTwo.setLabels(ref player2LifeLabel, ref player2Label, ref player2ActionBar);
+        createPlayer(ref player1, map.getPlayerStartPosition("Player1"), 0);
+        createPlayer(ref player2, map.getPlayerStartPosition("Player2"), 180);
+        
+        player1.setLabels(ref player1Life, ref player1ActionBars, ref actionHandler, ref player1ActionPool);
+        player2.setLabels(ref player2Life, ref player2ActionBars, ref actionHandler, ref player2ActionPool);
       
     }
     
 
     private void Update()
     {
-        if (playerOne.NumberOfActions == playerOne.actionList.Count
-            && playerTwo.NumberOfActions == playerTwo.actionList.Count 
-            && !isPlaying )
+        if (!isTimer && !isPlaying)
         {
-            StartCoroutine(PlayAction());
-        }
-    }
-    
-    //PLAY ACTION
-    private IEnumerator PlayAction()
-    {
-        //PLAY ACTION
-        isPlaying = true;
-        Debug.Log("---------- IS PLAYING ----------");
-        for (int i = 0; playerOne.NumberOfActions > i; i++)
-        {
-            playerOne.DoAction(playerOne.actionList[i]);
-            playerTwo.DoAction(playerTwo.actionList[i]);
-
-            while (playerOne.IsInAction || playerTwo.IsInAction)
+            if (player1.actionList.Count == player1.NumberOfActions || player2.actionList.Count == player2.NumberOfActions)
             {
-                yield return new WaitForSeconds(0.1f);
+                //launch Timer
+                isTimer = true;
+                timerText.text = timer.ToString();
+                lastTimer = Time.realtimeSinceStartup;
+
             }
         }
-        isPlaying = false;
-        Debug.Log("---------- STOP PLAYING ----------");
-        LabelReset();
-        LifeCheck();
+        if (isTimer)
+        {
+            if(lastTimer + 1 <= Time.realtimeSinceStartup)
+            {
+                timer--;
+                lastTimer = Time.realtimeSinceStartup;
+                timerText.text = timer.ToString();
+            }
+            if(timer == 0)
+            {
+                isTimer = false;
+                timer = 5;
+                timerText.text = "--";
+                isPlaying = true;
+            }
+        }
+       
+        //Si les deux joueurs ont prevu ttes leurs action -> Lance la phase d'action
+        if(actionHandler.Size() == player1.NumberOfActions + player2.NumberOfActions && !isPlaying)
+        {
+            actionHandler.Print();
+            isPlaying = true;
+            Debug.Log("----- IS PLAYING -----");
+        }
 
+        //Si il n'y a pas d'action en cours faire la prochaine action.
+        if(!player1.IsInAction && !player2.IsInAction && isPlaying)
+        {
+
+            Action a = actionHandler.GetAction(activeAction);
+            Debug.Log("ACTIVE ACTION : " + activeAction);
+            a.Print();
+            a.Player.DoAction(a);
+
+            //si il y a encore des actions à faire
+            if(activeAction < actionHandler.Size()-1)
+            {
+                activeAction++;
+            }
+            //fin de phase d'action
+            else
+            {
+                isPlaying = false;
+                Debug.Log("----- OUT PLAYING -----");
+                activeAction = 0;
+                actionHandler.ClearAction();
+                LabelReset();
+                LifeCheck();
+                nbrOfTurn++;
+            }
+        }
     }
-
 
 
     //METHODE
@@ -87,22 +132,21 @@ public class GameManager : MonoBehaviour
     }
     private void LabelReset()
     {
-        playerOne.ResetLabel();
-        playerTwo.ResetLabel();
+        player1.ResetLabel();
+        player2.ResetLabel();
         
-        player1Label.text = "";
-        player2Label.text = "";
+        
     }
-    private void createPlayer(ref Player player, float x, float z, float r)
+    private void createPlayer(ref Player player, Vector2 pos, float r)
     {
         player = Instantiate(player);
         player.transform.parent = transform;
-        player.transform.position = new Vector3(x, 0, z);
+        player.transform.position = new Vector3(pos.x, 0, pos.y);
         player.transform.rotation = Quaternion.Euler(new Vector3(0, r, 0));
         player.TargetPosition = player.transform.position;
         player.TargetRotation = player.transform.rotation;
         listEntities.Add(player);
-
+        
     }
 
 }

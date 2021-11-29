@@ -5,17 +5,21 @@ using UnityEngine;
 
 public class Movable : Entity
 {
+
     int life = 10;
 
+    [SerializeField] float speed = 4f;
+    [SerializeField] float rotationSpeed = 125;
 
-    float speed = 4f;
-    float rotationSpeed = 125;
+    [SerializeField] Bullets bullet;
+
     float rotationDelta = 0;
     private Vector3 targetPosition;
     private Quaternion targetRotation;
+
     bool isInAction = false;
-    [SerializeField] Ball ball;
-    Ball b;
+    
+    Bullets b;
 
     //GETTER SETTER
     public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
@@ -25,6 +29,7 @@ public class Movable : Entity
     public bool IsInAction { get => isInAction; set => isInAction = value; }
     public int Life { get => life; set => life = value; }
 
+    //UPDATE
     private void FixedUpdate()
     {
         DoForward();
@@ -37,7 +42,7 @@ public class Movable : Entity
         FinishAction();
     }
 
-    //UPDATE
+    //UPDATE Methode
     protected void FinishAction()
     {
         if (transform.position == targetPosition && transform.rotation == targetRotation && IsInAction && b == null)
@@ -93,30 +98,6 @@ public class Movable : Entity
         
 
     }
-
-    private void activateCollectable(Collectable c)
-    {
-        Debug.Log("Activate Collectable : " + c);
-        setLife(5);
-        Destroy(c.gameObject);
-    }
-
-    private Collectable isOnCollectable()
-    {
-        var lb = GameObject.FindGameObjectsWithTag("Collectable");
-        foreach(GameObject go in lb)
-        { 
-            if(go.transform.position == transform.position)
-            {
-                return go.GetComponent<Collectable>();
-            }
-        }
-        return null;
-        
-    }
-
-    
-
     protected void Rotate()
     {
         IsInAction = true;
@@ -126,7 +107,7 @@ public class Movable : Entity
     {
         IsInAction = true;
 
-        b = Instantiate(ball);
+        b = Instantiate(bullet);
         b.transform.position = transform.position;
         b.transform.rotation = transform.rotation;
         int range = 10;
@@ -153,7 +134,7 @@ public class Movable : Entity
             {
                 Movable tmpe = e.GetComponent<Movable>();
                 Vector3 tmp = b.transform.position + getFowardVector() * i;
-                if (tmpe.TargetPosition == b.transform.position + getFowardVector() * i)
+                if (tmpe.transform.position == b.transform.position + getFowardVector() * i)
                 {
                     b.TargetPosition = b.transform.position + getFowardVector() * i;
                     isHit = true;
@@ -167,8 +148,31 @@ public class Movable : Entity
             b.TargetPosition = b.transform.position + getFowardVector() * 10;
         }
 
-        Debug.Log(this + " IN ACTION Shoot from :" + b.transform.position + " -> " + b.TargetPosition);
     }
+    private void activateCollectable(Collectable c)
+    {
+        Debug.Log("Activate Collectable : " + c);
+        setLife(5);
+        Destroy(c.gameObject);
+    }
+
+    private Collectable isOnCollectable()
+    {
+        var lb = GameObject.FindGameObjectsWithTag("Collectable");
+        foreach(GameObject go in lb)
+        { 
+            if(go.transform.position == transform.position)
+            {
+                return go.GetComponent<Collectable>();
+            }
+        }
+        return null;
+        
+    }
+
+    
+
+   
 
     //METHODE
     protected bool isCollide(Vector3 f)
@@ -188,7 +192,6 @@ public class Movable : Entity
             foreach (GameObject player in playerList)
             {
                 Movable pe = player.GetComponent<Movable>();
-                Debug.Log(this + "Check Collide : " + pe + " " + pe.targetPosition + " f " + f);
                 if (pe.TargetPosition == f)
                 {
                     return true;

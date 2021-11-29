@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7621239397635185636}
-  - component: {fileID: 4810455956661189582}
+  - component: {fileID: 4110452096041962405}
   m_Layer: 0
   m_Name: Balle
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -1.373, y: -91.728, z: 0.382}
---- !u!114 &4810455956661189582
+--- !u!114 &4110452096041962405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +42,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7102111152748986718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c465bc60dbba34a90ef1be0061f87d, type: 3}
+  m_Script: {fileID: 11500000, guid: 903fc95565dd901489079be04f416c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 0}
+  speed: 4
+  rotationSpeed: 125
+  bullet: {fileID: 0}
   explose: {fileID: 3521175365046741043}
 --- !u!1 &8779610937034149477
 GameObject:
