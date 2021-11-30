@@ -121,7 +121,7 @@ public class Movable : Entity
             {
                 Vector3 tmp = b.transform.position + getFowardVector() * i;
 
-                if (tile.transform.position == b.transform.position + getFowardVector() * i)
+                if (tile.transform.position == b.transform.position + getFowardVector() * i && !isHit)
                 {
                     b.TargetPosition = b.transform.position + getFowardVector() * i;
                     isHit = true;
@@ -134,7 +134,7 @@ public class Movable : Entity
             {
                 Movable tmpe = e.GetComponent<Movable>();
                 Vector3 tmp = b.transform.position + getFowardVector() * i;
-                if (tmpe.transform.position == b.transform.position + getFowardVector() * i)
+                if (tmpe.transform.position == b.transform.position + getFowardVector() * i && !isHit)
                 {
                     b.TargetPosition = b.transform.position + getFowardVector() * i;
                     isHit = true;

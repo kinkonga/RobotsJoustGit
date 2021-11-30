@@ -381,17 +381,17 @@ MonoBehaviour:
   - {fileID: 5359385577239651454, guid: a8b34fd3e886df4409549421d275209f, type: 3}
   mapSize: {x: 10, y: 10}
   nbrWall: 40
+  nbrBonus: 3
+  mapText: {fileID: 4900000, guid: e811adb30e99cd846830b7a3b956ff8a, type: 3}
   walls:
   - {fileID: 3979418452818164578, guid: ebae742960723c84692449bf799f8c2f, type: 3}
-  nbrBonus: 3
   bonusTile:
   - {fileID: 3868226787697940819, guid: d2faff24d51dcdb4ea8391eba2c28ae6, type: 3}
   bonus:
-  - {fileID: 8281824289417964455, guid: 4c0fdc7bae5f7ba458744db6ca6187c8, type: 3}
-  - {fileID: 400169817780584267, guid: 8688f5a60b6585848919b411ff9a712b, type: 3}
+  - {fileID: 5696342282265956798, guid: 114b562a869c3d54c800d9197ff80f32, type: 3}
+  - {fileID: 8533665572170175880, guid: 1ac97335ee6d4bc4682909d0618c1929, type: 3}
   waterTile:
   - {fileID: 7458720519518317547, guid: 4fa26a41a15a4564a9abc4814fee6539, type: 3}
-  mapText: {fileID: 4900000, guid: e811adb30e99cd846830b7a3b956ff8a, type: 3}
 --- !u!114 &308399733
 MonoBehaviour:
   m_ObjectHideFlags: 0

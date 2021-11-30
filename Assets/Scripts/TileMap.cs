@@ -6,20 +6,26 @@ using UnityEngine;
 
 public class TileMap : MonoBehaviour
 {
+    [Header("Map")]
     [SerializeField] List<GameObject> tiles;
     [SerializeField] Vector2Int mapSize = new Vector2Int(10, 10);
+    [Header("Random Map")]
     [SerializeField] int nbrWall = 10;
-    [SerializeField] List<GameObject> walls;
     [SerializeField] int nbrBonus = 2;
+    [Header("Text Map")]
+    [SerializeField] TextAsset mapText;
+    [Header("Tiles")]
+    [SerializeField] List<GameObject> walls;
     [SerializeField] List<GameObject> bonusTile;
     [SerializeField] List<GameObject> bonus;
     [SerializeField] List<GameObject> waterTile;
+
+    
+
     public GameObject[,] tileMap;
     List<Item> listItem = new List<Item>();
 
-    [SerializeField] TextAsset mapText;
     char[,] textTileMap;
-
 
     private void Awake()
     {
@@ -34,8 +40,7 @@ public class TileMap : MonoBehaviour
         Debug.Log("OK -> CreateItem");
     }
 
-    
-    
+
     private void CreateMap()
     {
 
@@ -198,6 +203,12 @@ public class TileMap : MonoBehaviour
     }
 
     public Vector2Int MapSize { get => mapSize; set => mapSize = value; }
+    public List<GameObject> Bonus { get => bonus; set => bonus = value; }
+
+    public GameObject GetBonus(int i)
+    {
+        return Bonus[i];
+    }
 
     public Vector2 getPlayerStartPosition(string player)
     {

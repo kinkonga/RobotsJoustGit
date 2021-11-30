@@ -52,7 +52,13 @@ public class GameManager : MonoBehaviour
         
         player1.setLabels(ref player1Life, ref player1ActionBars, ref actionHandler, ref player1ActionPool, ref player1Energy);
         player2.setLabels(ref player2Life, ref player2ActionBars, ref actionHandler, ref player2ActionPool, ref player2Energy);
-      
+
+        GameObject[] bt = GameObject.FindGameObjectsWithTag("BonusTiles");
+        for (int i = 0; bt.Length > i; i++)
+        {
+            bt[i].GetComponent<BonusTile>().Spawn(nbrOfTurn);
+        }
+
     }
     
 
@@ -155,7 +161,12 @@ public class GameManager : MonoBehaviour
         actionHandler.ClearAction();
         player1.ResetLabel();
         player2.ResetLabel();
-        
+
+        GameObject[] bt = GameObject.FindGameObjectsWithTag("BonusTiles");
+        for(int i = 0;bt.Length > i;i++)
+        {
+            bt[i].GetComponent<BonusTile>().UpdateState(nbrOfTurn);
+        }
         
     }
     private void createPlayer(ref Player player, Vector2 pos, float r)
@@ -169,5 +180,7 @@ public class GameManager : MonoBehaviour
         listEntities.Add(player);
         
     }
+
+    
 
 }
