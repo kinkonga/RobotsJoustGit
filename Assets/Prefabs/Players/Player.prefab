@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4155450770062417060}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,6 +57,8 @@ MonoBehaviour:
   bullet: {fileID: 694746981765191918, guid: fcf3674c8c8ff4841b9f21143354c2d3, type: 3}
   pSmoke: {fileID: 8906636913858253616}
   playerNbr: 1
+  refuel: 0
+  finalRefuel: 3
 --- !u!114 &5350931314973108766
 MonoBehaviour:
   m_ObjectHideFlags: 0

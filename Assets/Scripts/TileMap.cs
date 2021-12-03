@@ -13,7 +13,8 @@ public class TileMap : MonoBehaviour
     [SerializeField] int nbrWall = 10;
     [SerializeField] int nbrBonus = 2;
     [Header("Text Map")]
-    [SerializeField] TextAsset mapText;
+    [SerializeField] List<TextAsset> mapText;
+
     [Header("Tiles")]
     [SerializeField] List<GameObject> walls;
     [SerializeField] List<GameObject> bonusTile;
@@ -182,7 +183,8 @@ public class TileMap : MonoBehaviour
     }
     private void LoadTextMap()
     {
-        string[] rows = Regex.Split(mapText.text, "\r\n|\r|\n");
+
+        string[] rows = Regex.Split(mapText[Random.Range(0, mapText.Count)].text, "\r\n|\r|\n");
         int indexI = 0;
         int indexJ = 0;
         foreach (string row in rows)

@@ -11,6 +11,9 @@ public class Player : Movable
     //VARIABLES
     [Header("PLAYER")]
     [SerializeField] int playerNbr;
+    [SerializeField] int refuel = 0;
+    [SerializeField] int finalRefuel = 3;
+
     
     //LOGIC
     int numberPlanAction = 0;
@@ -27,11 +30,7 @@ public class Player : Movable
     ActionHandler actionHandler;
     ActionPool actionPool;
 
-    //AUTO
-    private void Awake()
-    {
 
-    }
     private void Start()
     {
 
@@ -75,6 +74,19 @@ public class Player : Movable
     }
 
     //METHODE
+    public void turnRefuel()
+    {
+        if(Energy == 0)
+        {
+            setEnergy(finalRefuel);
+        }
+        else
+        {
+            setEnergy(refuel);
+        }
+        
+
+    }
     private void DoActionPool(int i)
     {
        
@@ -132,7 +144,7 @@ public class Player : Movable
         if (Energy < 0) Energy = 0;
         energyLabel.text = Energy.ToString();
     }
-    public virtual void setEnergy(int e)
+    public override void setEnergy(int e)
     {
         Energy += e;
         if (Energy < 0) Energy = 0;

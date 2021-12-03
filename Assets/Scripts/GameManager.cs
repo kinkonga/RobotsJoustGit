@@ -122,8 +122,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("----- OUT PLAYING -----");
 
         LifeCheck();
-        player1.setEnergy(3);
-        player2.setEnergy(3);
+        player1.turnRefuel();
+        player2.turnRefuel();
         LabelReset();
         nbrOfTurn++;
     }
