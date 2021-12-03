@@ -379,6 +379,10 @@ MonoBehaviour:
   - {fileID: 6437720716993424516, guid: 7312f374faf8077488d9932c874e255d, type: 3}
   - {fileID: 61556538074900838, guid: 49888da691605674991932c02ebe70dc, type: 3}
   - {fileID: 5359385577239651454, guid: a8b34fd3e886df4409549421d275209f, type: 3}
+  - {fileID: 8953334113249350328, guid: 4ed680f38a3051c4fb494c6ef968bdf1, type: 3}
+  - {fileID: 5768994577135821898, guid: 3fe70cf6aab7b524f8c54a028de2ed64, type: 3}
+  - {fileID: 8958262022751037350, guid: fd032884faa96c644a43e38ae2b0fc8c, type: 3}
+  - {fileID: 4581776946481436362, guid: 6d4772a783e2fe0448827bab200899b6, type: 3}
   mapSize: {x: 10, y: 10}
   nbrWall: 40
   nbrBonus: 3
@@ -387,11 +391,10 @@ MonoBehaviour:
   - {fileID: 3979418452818164578, guid: ebae742960723c84692449bf799f8c2f, type: 3}
   bonusTile:
   - {fileID: 3868226787697940819, guid: d2faff24d51dcdb4ea8391eba2c28ae6, type: 3}
+  - {fileID: 6634259373907789006, guid: 884f9064311d100469c05e0ef7f0350f, type: 3}
   bonus:
   - {fileID: 5696342282265956798, guid: 114b562a869c3d54c800d9197ff80f32, type: 3}
   - {fileID: 8533665572170175880, guid: 1ac97335ee6d4bc4682909d0618c1929, type: 3}
-  waterTile:
-  - {fileID: 7458720519518317547, guid: 4fa26a41a15a4564a9abc4814fee6539, type: 3}
 --- !u!114 &308399733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,8 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a851b88ac135cb45ba47d331febfd2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 2605068084061092919, guid: 6c22f019e4f70254e85befb29ec82fe6, type: 3}
-  player2: {fileID: 885267711090976132, guid: cddf10d2a8044224fb5580ef6aa23a5e, type: 3}
+  player1: {fileID: 3386771098636598229, guid: 6d435d1386bf34b4790b3e6337f1d590, type: 3}
+  player2: {fileID: 6134138628166610774, guid: cd270d6ab39084d45a836b754e0a83ae, type: 3}
   player1Life: {fileID: 688196956}
   player2Life: {fileID: 421365328}
   player1Energy: {fileID: 1199049684}
@@ -2287,7 +2290,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9a97f68b7b8b2434e8ca60123f60b018, type: 2}
+  - {fileID: 2100000, guid: fcd9e4263abe399468e9cd1499ad8a6f, type: 2}
+  - {fileID: 2100000, guid: 6e4030a62174120408cb9fefd3487988, type: 2}
+  - {fileID: 2100000, guid: f559e69e7323a834b967442c22ad504a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2316,7 +2321,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005285324447077969}
-  m_Mesh: {fileID: -5495902117074765545, guid: 2fef407765afbc643bea817c608b738f, type: 3}
+  m_Mesh: {fileID: -8565546730901328957, guid: c47d238f82b114e428c5e852af2319ad, type: 3}
 --- !u!1001 &6322286677524686550
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5567306123859115995, guid: 7312f374faf8077488d9932c874e255d, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -6418479661707591738, guid: 2fef407765afbc643bea817c608b738f, type: 3}
+      objectReference: {fileID: -6418479661707591738, guid: e827dd72dac93ff43868acd7bb591e26, type: 3}
     - target: {fileID: 6437720716993424516, guid: 7312f374faf8077488d9932c874e255d, type: 3}
       propertyPath: m_Name
       value: Tile Bonus
@@ -63,6 +63,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7685388528572320529, guid: 7312f374faf8077488d9932c874e255d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685388528572320529, guid: 7312f374faf8077488d9932c874e255d, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: f559e69e7323a834b967442c22ad504a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7312f374faf8077488d9932c874e255d, type: 3}
 --- !u!1 &3868226787697940819 stripped
@@ -70,7 +78,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6437720716993424516, guid: 7312f374faf8077488d9932c874e255d, type: 3}
   m_PrefabInstance: {fileID: 7852539589568902615}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7537273613398935644
+--- !u!114 &4572798250836477242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,3 +90,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9660c072c222fa74391d50f080606449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnTime: 3
+  bonus: {fileID: 7570711968018748027, guid: 114b562a869c3d54c800d9197ff80f32, type: 3}

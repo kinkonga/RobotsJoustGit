@@ -6,26 +6,28 @@ using TMPro;
 
 public class Player : Movable
 {
-    
-    int numberOfActions = 5;
-    int numberPlanAction = 0;
 
-    int energy = 20;
+
+    //VARIABLES
+    [Header("PLAYER")]
+    [SerializeField] int playerNbr;
+    
+    //LOGIC
+    int numberPlanAction = 0;
     int precostEnergy = 20;
 
+    //STATE
+    bool isReady = false;
+
+    //UI REFERENCE
     TextMeshProUGUI lifeLabel;
     TextMeshProUGUI energyLabel;
     TextMeshPro actionLabel;
     UIActionBars2D actionBars;
     ActionHandler actionHandler;
     ActionPool actionPool;
-    [SerializeField] int playerNbr;
-    
-    bool isReady = false;
-   
-    public List<Action> actionList = new List<Action>();
 
-
+    //AUTO
     private void Awake()
     {
 
@@ -39,17 +41,16 @@ public class Player : Movable
         actionBars.SetAllActive();
 
     }
-
     private void Update()
     {
         updateLife();
         updateEnergy();
 
-        if (actionList.Count == numberOfActions)
+        if (actionList.Count == NumberOfActions && !isReady)
         {
             isReady = true;
         }
-        else if (precostEnergy == 0)
+        else if (precostEnergy == 0 && !isReady)
         {
             isReady = true;
         }
@@ -73,6 +74,7 @@ public class Player : Movable
         DoActionPool(3);
     }
 
+    //METHODE
     private void DoActionPool(int i)
     {
        
@@ -90,7 +92,6 @@ public class Player : Movable
             precostEnergy += actionPool.GetAction(i).EnergyCost;
         }
     }
-
     public void DoAction(Action a)
     {
         
@@ -121,22 +122,22 @@ public class Player : Movable
         lifeLabel.text = Life.ToString();
         lifeLabel.GetComponent<BumpScale>().activeBump();
     }
-    public void setEnergy(int e)
+    protected void updateLife()
+    {
+        if (Life < 0) Life = 0;
+        lifeLabel.text = Life.ToString();
+    }
+    protected void updateEnergy()
+    {
+        if (Energy < 0) Energy = 0;
+        energyLabel.text = Energy.ToString();
+    }
+    public virtual void setEnergy(int e)
     {
         Energy += e;
         if (Energy < 0) Energy = 0;
         energyLabel.text = Energy.ToString();
         energyLabel.GetComponent<BumpScale>().activeBump();
-    }
-    private void updateLife()
-    {
-        if (Life < 0) Life = 0;
-        lifeLabel.text = Life.ToString();
-    }
-    private void updateEnergy()
-    {
-        if (Energy < 0) Energy = 0;
-        energyLabel.text = Energy.ToString();
     }
     public void setLabels(ref TextMeshProUGUI life, ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool, ref TextMeshProUGUI e)
     {
@@ -151,12 +152,10 @@ public class Player : Movable
         numberPlanAction = 0;
         actionList.Clear();
         actionBars.SetAllActive();
-        precostEnergy = energy;
+        precostEnergy = Energy;
         isReady = false;
 
     }
-    public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
-    public int Energy { get => energy; set => energy = value; }
     public bool IsReady { get => isReady; set => isReady = value; }
 }
 

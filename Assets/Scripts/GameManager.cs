@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ActionPool player2ActionPool;
     [SerializeField] TextMeshProUGUI timerText;
 
-    int nbrOfTurn;
+    
 
 
     //REFERENCE
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     float lastTimer = 0;
     bool isPlaying = false;
     int activeAction = 0;
-
+    int nbrOfTurn = 0;
     public bool IsPlaying { get => isPlaying; set => isPlaying = value; }
 
 

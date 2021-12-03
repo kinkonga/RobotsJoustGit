@@ -18,18 +18,18 @@ public class TileMap : MonoBehaviour
     [SerializeField] List<GameObject> walls;
     [SerializeField] List<GameObject> bonusTile;
     [SerializeField] List<GameObject> bonus;
-    [SerializeField] List<GameObject> waterTile;
+    
 
     
 
-    public GameObject[,] tileMap;
+    public Tile[,] tileMap;
     List<Item> listItem = new List<Item>();
 
     char[,] textTileMap;
 
     private void Awake()
     {
-        tileMap = new GameObject[mapSize.x, mapSize.y];
+        tileMap = new Tile[mapSize.x, mapSize.y];
         textTileMap = new char[mapSize.x, mapSize.y];
 
         //CreateMap();
@@ -41,7 +41,7 @@ public class TileMap : MonoBehaviour
     }
 
 
-    private void CreateMap()
+    private void CreateRandomMap()
     {
 
         GameObject nt;
@@ -55,11 +55,11 @@ public class TileMap : MonoBehaviour
                 nt.transform.position = new Vector3(i, 0, j);
                 nt.transform.parent = transform;
                 nt.transform.name = "(" + i + "," + j + ")";
-                tileMap[i, j] = nt;
+                tileMap[i, j] = new Tile(new Vector2(i,j),true);
 
             }
         }
-        CreateItems();
+        CreateRandomItems();
     }
     private void CreateTextMap()
     {
@@ -74,30 +74,49 @@ public class TileMap : MonoBehaviour
                 switch (textTileMap[i, j])
                 {
                     case '_': //Sol
-                        nt = CreateGround(i, j);
+                        CreateGround(i, j);
+                        tileMap[i, j] = new Tile(new Vector2(i, j), true);
+                        tileMap[i, j].Print();
                         break;
                     case 'w': //Sol + MUR
-                        nt = CreateGround(i, j);
+                        CreateGround(i, j);
+                        tileMap[i, j] = new Tile(new Vector2(i, j), false);
                         listItem.Add(new Item(new Vector2(i,j), "Wall"));
+                        tileMap[i, j].Print();
                         break;
                     case '.': //Water
+                        tileMap[i, j] = new Tile(new Vector2(i, j), false);
                         listItem.Add(new Item(new Vector2(i, j), "Water"));
+                        tileMap[i, j].Print();
                         break;
-                    case 'b': //Bonus
-                        listItem.Add(new Item(new Vector2(i, j), "Bonus"));
+                    case 'h': //Health
+                        tileMap[i, j] = new Tile(new Vector2(i, j), true);
+                        listItem.Add(new Item(new Vector2(i, j), "Health"));
+                        tileMap[i, j].Print();
+                        break;
+                    case 'e': //Energy
+                        tileMap[i, j] = new Tile(new Vector2(i, j), true);
+                        listItem.Add(new Item(new Vector2(i, j), "Energy"));
+                        tileMap[i, j].Print();
                         break;
                     case '1':
                         nt = CreateGround(i, j);
+                        tileMap[i, j] = new Tile(new Vector2(i, j), true);
                         listItem.Add(new Item(new Vector2(i, j), "Player1"));
+                        tileMap[i, j].Print();
                         break;
                     case '2':
                         nt = CreateGround(i, j);
+                        tileMap[i, j] = new Tile(new Vector2(i, j), true);
                         listItem.Add(new Item(new Vector2(i, j), "Player2"));
+                        tileMap[i, j].Print();
                         break;
                 }
 
             }
         }
+
+
         GameObject go;
         foreach (Item i in listItem)
         {
@@ -108,15 +127,18 @@ public class TileMap : MonoBehaviour
                     go.transform.position = new Vector3(i.Pos.x, 0, i.Pos.y);
                     go.transform.parent = transform;
                     break;
-                case "Bonus":
-                    go = Instantiate(bonusTile[Random.Range(0, bonusTile.Count)]);
+                case "Health":
+                    go = Instantiate(bonusTile[0]);
+                    go.transform.position = new Vector3(i.Pos.x, 0, i.Pos.y);
+                    go.transform.parent = transform;
+                    break;
+                case "Energy":
+                    go = Instantiate(bonusTile[1]);
                     go.transform.position = new Vector3(i.Pos.x, 0, i.Pos.y);
                     go.transform.parent = transform;
                     break;
                 case "Water":
-                    go = Instantiate(waterTile[Random.Range(0, waterTile.Count)]);
-                    go.transform.position = new Vector3(i.Pos.x, 0, i.Pos.y);
-                    go.transform.parent = transform;
+                    
                     break;
                 default:
                     break;
@@ -130,9 +152,10 @@ public class TileMap : MonoBehaviour
         nt.transform.position = new Vector3(i, 0, j);
         nt.transform.parent = transform;
         nt.transform.name = "(" + i + "," + j + ")";
+        
         return nt;
     }
-    private void CreateItems()
+    private void CreateRandomItems()
     {
         PlanRandomItem(listItem, nbrWall, "Wall");
         PlanRandomItem(listItem, nbrBonus, "Bonus");
@@ -178,6 +201,8 @@ public class TileMap : MonoBehaviour
         }
     }
 
+    
+
     private void PlanRandomItem(List<Item> list, int nbr, string id)
     {
         for (int i = 0; i < nbr; i++)
@@ -202,6 +227,10 @@ public class TileMap : MonoBehaviour
         return false;
     }
 
+    public bool IsPassable(Vector3 v)
+    {
+        return tileMap[(int)v.x,(int)v.z].Passable;
+    }
     public Vector2Int MapSize { get => mapSize; set => mapSize = value; }
     public List<GameObject> Bonus { get => bonus; set => bonus = value; }
 
@@ -235,6 +264,26 @@ public class Item
     }
     
 
+    public Vector2 Pos { get => pos; set => pos = value; }
+    public string Id { get => id; set => id = value; }
+}
+
+public class Tile
+{
+    Vector2 pos;
+    string id;
+    bool passable;
+
+    public Tile(Vector2 p, bool pass)
+    {
+        pos = p;
+        passable = pass;
+    }
+    public void Print()
+    {
+        Debug.Log("Tile: " + Pos + " p=" + Passable);
+    }
+    public bool Passable { get => passable; set => passable = value; }
     public Vector2 Pos { get => pos; set => pos = value; }
     public string Id { get => id; set => id = value; }
 }

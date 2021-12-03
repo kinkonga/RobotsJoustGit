@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5567306123859115995, guid: 7312f374faf8077488d9932c874e255d, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 8733429697405204941, guid: 2fef407765afbc643bea817c608b738f, type: 3}
+      objectReference: {fileID: 8733429697405204941, guid: e827dd72dac93ff43868acd7bb591e26, type: 3}
     - target: {fileID: 6437720716993424516, guid: 7312f374faf8077488d9932c874e255d, type: 3}
       propertyPath: m_Name
       value: Tile_Wall
@@ -64,12 +64,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7685388528572320529, guid: 7312f374faf8077488d9932c874e255d, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7685388528572320529, guid: 7312f374faf8077488d9932c874e255d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9a97f68b7b8b2434e8ca60123f60b018, type: 2}
+      objectReference: {fileID: 2100000, guid: fcd9e4263abe399468e9cd1499ad8a6f, type: 2}
+    - target: {fileID: 7685388528572320529, guid: 7312f374faf8077488d9932c874e255d, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6e4030a62174120408cb9fefd3487988, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7312f374faf8077488d9932c874e255d, type: 3}

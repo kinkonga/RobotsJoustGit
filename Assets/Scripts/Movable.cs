@@ -5,29 +5,34 @@ using UnityEngine;
 
 public class Movable : Entity
 {
-
-    int life = 10;
-
-    [SerializeField] float speed = 4f;
-    [SerializeField] float rotationSpeed = 125;
-
-    [SerializeField] Bullets bullet;
-
-    float rotationDelta = 0;
-    private Vector3 targetPosition;
-    private Quaternion targetRotation;
-
-    bool isInAction = false;
+    //VARIABLES
+    [Header("MOVABLE")]
+    [SerializeField] int life = 10;
+    [SerializeField] int energy = 20;
+    [SerializeField] int numberOfActions = 5;
+    public List<Action> actionList = new List<Action>();
     
-    Bullets b;
+
+    [SerializeField] Projectiles bullet;
+    [SerializeField] ParticleSystem pSmoke;
+    Animator animator;
+
+    //STATE
+    bool isInAction = false;
+
+    Projectiles b;
 
     //GETTER SETTER
-    public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
-    public float RotationDelta { get => rotationDelta; set => rotationDelta = value; }
-    public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
-    public Quaternion TargetRotation { get => targetRotation; set => targetRotation = value; }
     public bool IsInAction { get => isInAction; set => isInAction = value; }
     public int Life { get => life; set => life = value; }
+    public int Energy { get => energy; set => energy = value; }
+    public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetBool("idle", true);
+    }
 
     //UPDATE
     private void FixedUpdate()
@@ -42,66 +47,56 @@ public class Movable : Entity
         FinishAction();
     }
 
-    //UPDATE Methode
+    //METHODE
+   
     protected void FinishAction()
     {
-        if (transform.position == targetPosition && transform.rotation == targetRotation && IsInAction && b == null)
+        animator = GetComponent<Animator>();
+        if (IsArrived() && IsRotFinish() && IsInAction && b == null)
         {
             transform.position = TargetPosition;
             transform.rotation = TargetRotation;
             IsInAction = false;
-            
+            pSmoke.Stop();
+            animator.SetBool("idle", true);
         }
-        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == targetRotation && IsInAction)
+        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == TargetRotation && IsInAction)
         {
 
-
-            b.activeParticule();
-            Destroy(b.gameObject, 0.3f);
+            b.activeParticule(); 
+            Destroy(b.gameObject, 0.4f);
             IsInAction = false;
-            
+            animator.SetBool("idle", true);
 
         }
     }
-    protected void DoRotation()
-    {
-        if (transform.rotation != targetRotation)
-        {
-            transform.Rotate(new Vector3(0, rotationDelta * rotationSpeed * Time.deltaTime, 0));
-        }
-    }
-    protected void DoForward()
-    {
-        if (transform.position != targetPosition)
-        {
-            
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        }
-    }
+    
 
     //ACTIONS
     protected void Forward()
     {
+        animator = GetComponent<Animator>();
+        //ANIMATION AND PARTICULES
+        pSmoke.Play();
+        animator.SetBool("idle", false);
 
+        //CHANGE STATE
         IsInAction = true;
         Vector3 f = new Vector3();
 
+        //RECUPERATION DE LA CASE DEVANT
         f = transform.position + getFowardVector();
-
 
         //Collision
         if (!isCollide(f))
         {
-            targetPosition = f;
+            TargetPosition = f;
         }
-
-        
-
     }
     protected void Rotate()
     {
         IsInAction = true;
-        targetRotation = transform.rotation * Quaternion.Euler(0f, 90f * rotationDelta, 0f);
+        TargetRotation = transform.rotation * Quaternion.Euler(0f, 90f * RotationDelta, 0f);
     }
     protected void Shoot()
     {
@@ -152,10 +147,9 @@ public class Movable : Entity
     private void activateCollectable(Collectable c)
     {
         Debug.Log("Activate Collectable : " + c);
-        setLife(5);
+        c.Activated(this);
         Destroy(c.gameObject);
     }
-
     private Collectable isOnCollectable()
     {
         var lb = GameObject.FindGameObjectsWithTag("Collectable");
@@ -170,24 +164,30 @@ public class Movable : Entity
         
     }
 
-    
-
-   
-
     //METHODE
+    public virtual  void setLife(int v)
+    {
+        Life += v;
+        if (Life < 0) Life = 0;
+       
+    }
+    public virtual void setEnergy(int e)
+    {
+        Energy += e;
+        if (Energy < 0) Energy = 0;
+    }
+    
     protected bool isCollide(Vector3 f)
     {
-        if (f.x < GetComponentInParent<TileMap>().MapSize.x && 0 <= f.x && 0 <= f.z && f.z < GetComponentInParent<TileMap>().MapSize.y)
+        TileMap tm = GetComponentInParent<TileMap>();
+        
+        if (f.x < tm.MapSize.x && 0 <= f.x && 0 <= f.z && f.z < tm.MapSize.y)
         {
-            var tileList = GameObject.FindGameObjectsWithTag("Collider");
-            foreach (GameObject tile in tileList)
+            if (!tm.IsPassable(f))
             {
-                if (tile.transform.position == f)
-                {
-                    return true;
-                }
+                Debug.Log("Tile :"+ f + "p:" + tm.IsPassable(f));
+                return true;
             }
-
             var playerList = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in playerList)
             {
@@ -201,10 +201,6 @@ public class Movable : Entity
         }
         return true;
     }
-
-    public virtual void setLife(int v)
-    {
-        Life += v;
-    }
+    
 
 }

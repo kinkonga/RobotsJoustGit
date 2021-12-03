@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullets : Movable
+public class Bullets : Entity
 {
     [SerializeField] ParticleSystem explose;
 
