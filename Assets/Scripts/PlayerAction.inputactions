@@ -36,6 +36,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Stop",
+                    "type": "Button",
+                    "id": "fdd20a30-f615-4181-95f7-9922b8c83601",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Switch",
+                    "type": "Button",
+                    "id": "c4cda03c-9893-47f4-8652-74931cd0097f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -137,6 +153,28 @@
                     "action": "RotateL",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e20a64b-1849-413a-b2a1-9ea9f00dc750",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee93f967-9df7-4199-82ed-0c5870d63302",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -175,20 +213,25 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Stop",
+                    "type": "Button",
+                    "id": "c5c8fa42-857b-468d-b362-f7eba5561d60",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Switch",
+                    "type": "Button",
+                    "id": "01f34eb8-2f2d-4fbb-9cce-443d4a0c70b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "c8a8bf52-27ca-40dd-a2a6-f53e070f4a86",
-                    "path": "<Keyboard>/numpad0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "0637bf20-1f9a-4b7b-8ac7-19c5279ca990",
@@ -230,6 +273,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "RotateL",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a0d1a6e-fbb7-4e2a-b6fb-da5903b58f85",
+                    "path": "<Keyboard>/numpad0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe28a64b-d103-41c3-b232-2c1e2bf2a4d4",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

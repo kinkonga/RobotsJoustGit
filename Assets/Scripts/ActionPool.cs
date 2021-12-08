@@ -9,7 +9,7 @@ public class ActionPool : MonoBehaviour
     [SerializeField] List<GameObject> actionBox;
     [SerializeField] List<Texture2D> listTextures;
     Action[] pool;
-    int poolSize = 4;
+    int poolSize = 6;
 
     private void Awake()
     {
@@ -22,6 +22,8 @@ public class ActionPool : MonoBehaviour
         pool[1] = new Rotate(p, 1);
         pool[2] = new Rotate(p,-1);
         pool[3] = new Shoot(p);
+        pool[4] = new StopEnergy(p);
+        pool[5] = new Switch(p);
        
         setActionsIcon();
     }
@@ -53,6 +55,12 @@ public class ActionPool : MonoBehaviour
                     break;
                 case "Shoot":
                     actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[3];
+                    break;
+                case "StopEnergy":
+                    actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[4];
+                    break;
+                case "Switch":
+                    actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[5];
                     break;
             }
             actionBox[i].transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = pool[i].EnergyCost.ToString();

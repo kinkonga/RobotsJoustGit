@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
     //SERIALIZE FIELD
     [SerializeField] Player player1;
     [SerializeField] Player player2;
-    [SerializeField] TextMeshProUGUI player1Life;
-    [SerializeField] TextMeshProUGUI player2Life;
-    [SerializeField] TextMeshProUGUI player1Energy;
-    [SerializeField] TextMeshProUGUI player2Energy;
+    [SerializeField] UiSliderBar player1LifeSlider;
+    [SerializeField] UiSliderBar player2LifeSlider;
+    [SerializeField] UiSliderBar player1EnergySlider;
+    [SerializeField] UiSliderBar player2EnergySlider;
     [SerializeField] UIActionBars2D player1ActionBars;
     [SerializeField] UIActionBars2D player2ActionBars;
     [SerializeField] ActionPool player1ActionPool;
@@ -50,8 +50,8 @@ public class GameManager : MonoBehaviour
         createPlayer(ref player1, map.getPlayerStartPosition("Player1"), 0);
         createPlayer(ref player2, map.getPlayerStartPosition("Player2"), 180);
         
-        player1.setLabels(ref player1Life, ref player1ActionBars, ref actionHandler, ref player1ActionPool, ref player1Energy);
-        player2.setLabels(ref player2Life, ref player2ActionBars, ref actionHandler, ref player2ActionPool, ref player2Energy);
+        player1.setLabels(ref player1ActionBars, ref actionHandler, ref player1ActionPool, ref player1LifeSlider, ref player1EnergySlider);
+        player2.setLabels(ref player2ActionBars, ref actionHandler, ref player2ActionPool, ref player2LifeSlider, ref player2EnergySlider);
 
         GameObject[] bt = GameObject.FindGameObjectsWithTag("BonusTiles");
         for (int i = 0; bt.Length > i; i++)

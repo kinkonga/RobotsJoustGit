@@ -23,7 +23,8 @@ public class Player : Movable
     bool isReady = false;
 
     //UI REFERENCE
-    TextMeshProUGUI lifeLabel;
+    UiSliderBar lifeSlider;
+    UiSliderBar energySlider;
     TextMeshProUGUI energyLabel;
     TextMeshPro actionLabel;
     UIActionBars2D actionBars;
@@ -34,10 +35,13 @@ public class Player : Movable
     private void Start()
     {
 
-        lifeLabel.text = Life.ToString();
         actionPool.setDefaultAction(this);
         actionPool.Print();
         actionBars.SetAllActive();
+        lifeSlider.setCurrent(Life);
+        lifeSlider.setMax(MaxLife);
+        energySlider.setCurrent(Energy);
+        energySlider.setMax(MaxEnergy);
 
     }
     private void Update()
@@ -71,6 +75,14 @@ public class Player : Movable
     void OnShoot()
     {
         DoActionPool(3);
+    }
+    void OnStop()
+    {
+        DoActionPool(4);
+    }
+    void OnSwitch()
+    {
+        DoActionPool(5);
     }
 
     //METHODE
@@ -125,39 +137,51 @@ public class Player : Movable
             case "Shoot":
                 Shoot();
                 break;
+            case "StopEnergy":
+                StopRecharge();
+                break;
+            case "Switch":
+                Switch();
+                break;
         }
     }
     public override void setLife(int v)
     {
         Life += v;
-        if (Life < 0) Life = 0;
-        lifeLabel.text = Life.ToString();
-        lifeLabel.GetComponent<BumpScale>().activeBump();
-    }
-    protected void updateLife()
-    {
-        if (Life < 0) Life = 0;
-        lifeLabel.text = Life.ToString();
-    }
-    protected void updateEnergy()
-    {
-        if (Energy < 0) Energy = 0;
-        energyLabel.text = Energy.ToString();
+        updateLife();
+
+        
     }
     public override void setEnergy(int e)
     {
         Energy += e;
-        if (Energy < 0) Energy = 0;
-        energyLabel.text = Energy.ToString();
-        energyLabel.GetComponent<BumpScale>().activeBump();
+        updateEnergy();
+
+        
     }
-    public void setLabels(ref TextMeshProUGUI life, ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool, ref TextMeshProUGUI e)
+    protected void updateLife()
     {
-        lifeLabel = life;
-        energyLabel = e;
+        if (Life < 0) Life = 0;
+        if (Life > MaxLife) Life = MaxLife;
+
+        lifeSlider.setCurrent(Life);
+        
+    }
+    protected void updateEnergy()
+    {
+        if (Energy < 0) Energy = 0;
+        if (Energy > MaxEnergy) Energy = MaxEnergy;
+
+        energySlider.setCurrent(Energy);
+    }
+   
+    public void setLabels(ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool,ref UiSliderBar l, ref UiSliderBar e)
+    {
+        energySlider = e;
         actionBars = aBars2D;
         actionHandler = aHandler;
         actionPool = aPool;
+        lifeSlider = l;
     }
     public void ResetLabel()
     {

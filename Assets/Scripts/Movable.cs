@@ -8,7 +8,9 @@ public class Movable : Entity
     //VARIABLES
     [Header("MOVABLE")]
     [SerializeField] int life = 10;
+    int maxLife = 10;
     [SerializeField] int energy = 20;
+    int maxEnergy = 20;
     [SerializeField] int numberOfActions = 5;
     public List<Action> actionList = new List<Action>();
     
@@ -24,14 +26,19 @@ public class Movable : Entity
 
     //GETTER SETTER
     public bool IsInAction { get => isInAction; set => isInAction = value; }
+    public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
+    public int MaxLife { get => maxLife; set => maxLife = value; }
+    public int MaxEnergy { get => maxEnergy; set => maxEnergy = value; }
     public int Life { get => life; set => life = value; }
     public int Energy { get => energy; set => energy = value; }
-    public int NumberOfActions { get => numberOfActions; set => numberOfActions = value; }
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         animator.SetBool("idle", true);
+
+        maxLife = life;
+        maxEnergy = energy;
     }
 
     //UPDATE
@@ -144,6 +151,14 @@ public class Movable : Entity
         }
 
     }
+    protected void StopRecharge()
+    {
+        setEnergy(1);
+    }
+    protected void Switch()
+    {
+        Debug.Log("Switch");
+    }
     private void activateCollectable(Collectable c)
     {
         Debug.Log("Activate Collectable : " + c);
@@ -167,14 +182,16 @@ public class Movable : Entity
     //METHODE
     public virtual  void setLife(int v)
     {
-        Life += v;
-        if (Life < 0) Life = 0;
+        life += v;
+        if (life < 0) life = 0;
+        if (life > maxLife) life = maxLife;
        
     }
     public virtual void setEnergy(int e)
     {
-        Energy += e;
-        if (Energy < 0) Energy = 0;
+        energy += e;
+        if (Energy < 0) energy = 0;
+        if (Energy > maxEnergy) energy = maxEnergy;
     }
     
     protected bool isCollide(Vector3 f)

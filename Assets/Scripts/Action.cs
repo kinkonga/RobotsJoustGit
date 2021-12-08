@@ -102,12 +102,33 @@ public class Shoot : Action
         EnergyCost = 2;
     }
 }
-public class Empty : Action
+public class StopEnergy : Action
+{
+    public StopEnergy()
+    {
+        Type = "StopEnergy";
+        EnergyCost = 0;
+    }
+    public StopEnergy(Player p)
+    {
+        Type = "StopEnergy";
+        Player = p;
+        EnergyCost = 0;
+    }
+}
+
+public class Switch : Action
 {
 
-    public Empty()
+    public Switch()
     {
-        Type = "Empty";
+        Type = "Switch";
+    }
+    public Switch(Player p)
+    {
+        Type = "Switch";
+        Player = p;
+        EnergyCost = 1;
     }
 }
 
