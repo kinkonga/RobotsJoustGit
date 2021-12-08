@@ -17,9 +17,13 @@ public class Movable : Entity
 
     [SerializeField] Projectiles bullet;
     [SerializeField] ParticleSystem pSmoke;
+    [SerializeField] ParticleSystem pEnergyBoost;
     Animator animator;
 
     //STATE
+    float startWait = 0;
+    float targetWait = 0;
+    bool isWait = false;
     bool isInAction = false;
 
     Projectiles b;
@@ -59,7 +63,15 @@ public class Movable : Entity
     protected void FinishAction()
     {
         animator = GetComponent<Animator>();
-        if (IsArrived() && IsRotFinish() && IsInAction && b == null)
+        if (isWait)
+        {
+            if(Time.realtimeSinceStartup >= targetWait)
+            {
+                isWait = false;
+            }
+        }
+
+        if (IsArrived() && IsRotFinish() && IsInAction && b == null && !isWait)
         {
             transform.position = TargetPosition;
             transform.rotation = TargetRotation;
@@ -67,7 +79,7 @@ public class Movable : Entity
             pSmoke.Stop();
             animator.SetBool("idle", true);
         }
-        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == TargetRotation && IsInAction)
+        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == TargetRotation && IsInAction && !isWait)
         {
 
             b.activeParticule(); 
@@ -153,11 +165,17 @@ public class Movable : Entity
     }
     protected void StopRecharge()
     {
+        IsInAction = true;
         setEnergy(1);
+        pEnergyBoost.Play();
+        WaitToFinishAction(0.5f);
     }
     protected void Switch()
     {
+        IsInAction = true;
         Debug.Log("Switch");
+        animator.SetTrigger("Switch");
+        WaitToFinishAction(1f);
     }
     private void activateCollectable(Collectable c)
     {
@@ -219,5 +237,12 @@ public class Movable : Entity
         return true;
     }
     
+    protected void WaitToFinishAction(float s)
+    {
+        
+        isWait = true;
+        startWait = Time.realtimeSinceStartup;
+        targetWait = startWait + s;
+    }
 
 }
