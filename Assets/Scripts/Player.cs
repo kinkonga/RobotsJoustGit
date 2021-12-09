@@ -14,7 +14,8 @@ public class Player : Movable
     [SerializeField] int refuel = 0;
     [SerializeField] int finalRefuel = 3;
 
-    
+    List<Weapon> list_weapons = new List<Weapon>();
+    int equipedWeapon = 0;
     //LOGIC
     int numberPlanAction = 0;
     int precostEnergy = 20;
@@ -25,8 +26,6 @@ public class Player : Movable
     //UI REFERENCE
     UiSliderBar lifeSlider;
     UiSliderBar energySlider;
-    TextMeshProUGUI energyLabel;
-    TextMeshPro actionLabel;
     UIActionBars2D actionBars;
     ActionHandler actionHandler;
     ActionPool actionPool;
@@ -36,6 +35,7 @@ public class Player : Movable
     {
 
         actionPool.setDefaultAction(this);
+        actionPool.setWeaponIcon(list_weapons[equipedWeapon].Logo);
         actionPool.Print();
         actionBars.SetAllActive();
         lifeSlider.setCurrent(Life);
@@ -83,6 +83,65 @@ public class Player : Movable
     void OnSwitch()
     {
         DoActionPool(5);
+    }
+
+    //ACTION
+    protected override void Switch()
+    {
+        base.Switch();
+        equipedWeapon++;
+        if(equipedWeapon >= list_weapons.Count)
+        {
+            equipedWeapon = 0;
+        }
+        actionPool.setWeaponIcon(list_weapons[equipedWeapon].Logo);
+    }
+    protected override void Shoot()
+    {
+        Debug.Log("PlayerShoot");
+        IsInAction = true;
+        string type = list_weapons[equipedWeapon].ShootType;
+        int range = list_weapons[equipedWeapon].Range;
+        int damage = list_weapons[equipedWeapon].Damage;
+        Debug.Log(" type : " + type);
+        if(type == "Normal")
+        {
+            bullet = Instantiate(getEquipedWeapon().Ammo);
+            bullets.Add(bullet);
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+            if (!GetIfCollide(range, damage, GetNormalVector(1)))
+            {
+                bullet.TargetPosition = bullet.transform.position + GetNormalVector(1) * range;
+            }
+        }
+
+        if(type == "Lateral")
+        {
+            bullet = Instantiate(getEquipedWeapon().Ammo);
+            bullets.Add(bullet);
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation * Quaternion.Euler(0, 90, 0);
+            if (!GetIfCollide(range, damage, GetLateralVector(1)))
+            {
+                bullet.TargetPosition = bullet.transform.position + GetLateralVector(1) * range;
+            }
+
+            bullet = Instantiate(getEquipedWeapon().Ammo);
+            bullets.Add(bullet);
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation * Quaternion.Euler(0, -90, 0);
+            if (!GetIfCollide(range, damage, GetLateralVector(-1)))
+            {
+                bullet.TargetPosition = bullet.transform.position + GetLateralVector(-1) * range;
+            }
+        }
+        
+
+        
+
+
+
     }
 
     //METHODE
@@ -174,7 +233,6 @@ public class Player : Movable
 
         energySlider.setCurrent(Energy);
     }
-   
     public void setLabels(ref UIActionBars2D aBars2D, ref ActionHandler aHandler, ref ActionPool aPool,ref UiSliderBar l, ref UiSliderBar e)
     {
         energySlider = e;
@@ -192,6 +250,20 @@ public class Player : Movable
         isReady = false;
 
     }
+    public void giveWeapon(Weapon w)
+    {
+        list_weapons.Add(w);
+    }
     public bool IsReady { get => isReady; set => isReady = value; }
+    public void Print()
+    {
+        Debug.Log("- " + this + " -");
+        Debug.Log("Nbr Weapon : "+list_weapons.Count+" / Equiped : "+list_weapons[equipedWeapon].Name);
+        
+    }
+    public Weapon getEquipedWeapon()
+    {
+        return list_weapons[equipedWeapon];
+    }
 }
 

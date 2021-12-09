@@ -382,7 +382,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Exit"",
+                    ""name"": ""Menu"",
                     ""type"": ""Button"",
                     ""id"": ""3ae3510f-ee29-4d45-946b-7efeeb11e874"",
                     ""expectedControlType"": ""Button"",
@@ -802,7 +802,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Exit"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -848,7 +848,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
-        m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
+        m_UI_Menu = m_UI.FindAction("Menu", throwIfNotFound: true);
         m_UI_Restart = m_UI.FindAction("Restart", throwIfNotFound: true);
     }
 
@@ -1053,7 +1053,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
-    private readonly InputAction m_UI_Exit;
+    private readonly InputAction m_UI_Menu;
     private readonly InputAction m_UI_Restart;
     public struct UIActions
     {
@@ -1067,7 +1067,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
-        public InputAction @Exit => m_Wrapper.m_UI_Exit;
+        public InputAction @Menu => m_Wrapper.m_UI_Menu;
         public InputAction @Restart => m_Wrapper.m_UI_Restart;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
@@ -1102,9 +1102,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @RightClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                 @RightClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                 @RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                @Exit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnExit;
-                @Exit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnExit;
-                @Exit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnExit;
+                @Menu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
                 @Restart.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRestart;
                 @Restart.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRestart;
                 @Restart.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRestart;
@@ -1136,9 +1136,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
-                @Exit.started += instance.OnExit;
-                @Exit.performed += instance.OnExit;
-                @Exit.canceled += instance.OnExit;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
                 @Restart.started += instance.OnRestart;
                 @Restart.performed += instance.OnRestart;
                 @Restart.canceled += instance.OnRestart;
@@ -1174,7 +1174,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         void OnScrollWheel(InputAction.CallbackContext context);
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
-        void OnExit(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
     }
 }

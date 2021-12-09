@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ActionPool player1ActionPool;
     [SerializeField] ActionPool player2ActionPool;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] GameObject menuPanel;
 
     
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     public List<Entity> listEntities = new List<Entity>();
     TileMap map;
     ActionHandler actionHandler;
+    WeaponsManager weaponsManager;
 
     //STATES
     bool isTimer = false;
@@ -42,14 +44,19 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //Mise en Place des references 
+        weaponsManager = GetComponent<WeaponsManager>();
         actionHandler = GetComponent<ActionHandler>();
         map = GetComponent<TileMap>();
-        
+
         //Creation des joueurs
+
+        menuPanel.SetActive(false);
         
         createPlayer(ref player1, map.getPlayerStartPosition("Player1"), 0);
         createPlayer(ref player2, map.getPlayerStartPosition("Player2"), 180);
+
         
+
         player1.setLabels(ref player1ActionBars, ref actionHandler, ref player1ActionPool, ref player1LifeSlider, ref player1EnergySlider);
         player2.setLabels(ref player2ActionBars, ref actionHandler, ref player2ActionPool, ref player2LifeSlider, ref player2EnergySlider);
 
@@ -60,7 +67,16 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
+    private void Start()
+    {
+        player1.giveWeapon(weaponsManager.getWeapon(0));
+        player1.giveWeapon(weaponsManager.getWeapon(1));
+        player2.giveWeapon(weaponsManager.getWeapon(0));
+        player2.giveWeapon(weaponsManager.getWeapon(1));
+
+        player1.Print();
+        player2.Print();
+    }
 
     private void Update()
     {
@@ -179,6 +195,12 @@ public class GameManager : MonoBehaviour
         player.TargetRotation = player.transform.rotation;
         listEntities.Add(player);
         
+    }
+
+    void OnMenu()
+    {
+        Debug.Log("menu hid");
+        menuPanel.SetActive(!menuPanel.active);
     }
 
     

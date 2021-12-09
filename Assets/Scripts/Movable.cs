@@ -15,10 +15,11 @@ public class Movable : Entity
     public List<Action> actionList = new List<Action>();
     
 
-    [SerializeField] Projectiles bullet;
+    protected Projectiles bullet;
+    protected List<Projectiles> bullets = new List<Projectiles>();
     [SerializeField] ParticleSystem pSmoke;
-    [SerializeField] ParticleSystem pEnergyBoost;
-    Animator animator;
+    [SerializeField] protected ParticleSystem pEnergyBoost;
+    protected Animator animator;
 
     //STATE
     float startWait = 0;
@@ -26,7 +27,7 @@ public class Movable : Entity
     bool isWait = false;
     bool isInAction = false;
 
-    Projectiles b;
+    
 
     //GETTER SETTER
     public bool IsInAction { get => isInAction; set => isInAction = value; }
@@ -59,7 +60,6 @@ public class Movable : Entity
     }
 
     //METHODE
-   
     protected void FinishAction()
     {
         animator = GetComponent<Animator>();
@@ -71,7 +71,7 @@ public class Movable : Entity
             }
         }
 
-        if (IsArrived() && IsRotFinish() && IsInAction && b == null && !isWait)
+        if (IsArrived() && IsRotFinish() && IsInAction && bullets.Count == 0 && !isWait)
         {
             transform.position = TargetPosition;
             transform.rotation = TargetRotation;
@@ -79,18 +79,24 @@ public class Movable : Entity
             pSmoke.Stop();
             animator.SetBool("idle", true);
         }
-        if (b != null && b.transform.position == b.TargetPosition && transform.rotation == TargetRotation && IsInAction && !isWait)
+        if(bullets.Count != 0)
         {
-
-            b.activeParticule(); 
-            Destroy(b.gameObject, 0.4f);
-            IsInAction = false;
-            animator.SetBool("idle", true);
-
+            Debug.Log(bullets.Count);
+            for(int i = 0; i < bullets.Count;i++)
+            {
+                if (bullets[i].transform.position == bullets[i].TargetPosition)
+                {
+                    bullets[i].activeParticule();
+                    
+                    Destroy(bullets[i].gameObject, 0.4f);
+                    bullets.RemoveAt(i);
+                }
+            }
         }
+        
+        
     }
     
-
     //ACTIONS
     protected void Forward()
     {
@@ -104,7 +110,7 @@ public class Movable : Entity
         Vector3 f = new Vector3();
 
         //RECUPERATION DE LA CASE DEVANT
-        f = transform.position + getFowardVector();
+        f = transform.position + GetNormalVector(1);
 
         //Collision
         if (!isCollide(f))
@@ -117,28 +123,39 @@ public class Movable : Entity
         IsInAction = true;
         TargetRotation = transform.rotation * Quaternion.Euler(0f, 90f * RotationDelta, 0f);
     }
-    protected void Shoot()
+    protected virtual void Shoot()
     {
         IsInAction = true;
 
-        b = Instantiate(bullet);
-        b.transform.position = transform.position;
-        b.transform.rotation = transform.rotation;
+        bullet = Instantiate(bullet);
+        bullet.transform.position = transform.position;
+        bullet.transform.rotation = transform.rotation;
         int range = 10;
-        bool isHit = false;
+        int damage = 2;
+       
+        if (!GetIfCollide(range,damage, GetNormalVector(1)))
+        {
+            bullet.TargetPosition = bullet.transform.position + GetNormalVector(1) * range;
+        }
+        
+    }
 
+    protected bool GetIfCollide(int range,int damage,Vector3 vDelta)
+    {
+        bool h = false;
         //Get if Collide
+
         for (int i = 1; i < range; i++)
         {
             GameObject[] tileList = GameObject.FindGameObjectsWithTag("Collider");
             foreach (GameObject tile in tileList)
             {
-                Vector3 tmp = b.transform.position + getFowardVector() * i;
+                Vector3 tmp = bullet.transform.position + vDelta * i;
 
-                if (tile.transform.position == b.transform.position + getFowardVector() * i && !isHit)
+                if (tile.transform.position == bullet.transform.position + vDelta * i && !h)
                 {
-                    b.TargetPosition = b.transform.position + getFowardVector() * i;
-                    isHit = true;
+                    bullet.TargetPosition = bullet.transform.position + vDelta * i;
+                    h = true;
                 }
             }
 
@@ -147,22 +164,20 @@ public class Movable : Entity
             foreach (GameObject e in l)
             {
                 Movable tmpe = e.GetComponent<Movable>();
-                Vector3 tmp = b.transform.position + getFowardVector() * i;
-                if (tmpe.transform.position == b.transform.position + getFowardVector() * i && !isHit)
+                Vector3 tmp = bullet.transform.position + vDelta * i;
+                if (tmpe.transform.position == bullet.transform.position + vDelta * i && !h)
                 {
-                    b.TargetPosition = b.transform.position + getFowardVector() * i;
-                    isHit = true;
-                    tmpe.setLife(-1);
+                    bullet.TargetPosition = bullet.transform.position + vDelta * i;
+                    h = true;
+                    tmpe.setLife(-damage);
                 }
             }
 
         }
-        if (!isHit)
-        {
-            b.TargetPosition = b.transform.position + getFowardVector() * 10;
-        }
 
+        return h;
     }
+
     protected void StopRecharge()
     {
         IsInAction = true;
@@ -170,7 +185,7 @@ public class Movable : Entity
         pEnergyBoost.Play();
         WaitToFinishAction(0.5f);
     }
-    protected void Switch()
+    protected virtual void Switch()
     {
         IsInAction = true;
         Debug.Log("Switch");

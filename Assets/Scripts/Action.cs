@@ -99,7 +99,8 @@ public class Shoot : Action
     {
         Type = "Shoot";
         Player = p;
-        EnergyCost = 2;
+        EnergyCost = p.getEquipedWeapon().Cost;
+        
     }
 }
 public class StopEnergy : Action

@@ -50,22 +50,51 @@ public class Entity : MonoBehaviour
         }
         return false;
     }
-    protected Vector3 getFowardVector()
+    protected Vector3 GetNormalVector(int delta)
     {
+        Vector3 v;
         switch (Mathf.Round(transform.rotation.eulerAngles.y))
         {
             case 0:
-                return new Vector3(0, 0, 1);
+                v = new Vector3(0, 0, 1);
+                break;
             case 90:
-                return new Vector3(1, 0, 0);
+                v = new Vector3(1, 0, 0);
+                break;
             case 180:
-                return new Vector3(0, 0, -1);
+                v = new Vector3(0, 0, -1);
+                break;
             case 270:
-                return new Vector3(-1, 0, 0);
+                v = new Vector3(-1, 0, 0);
+                break;
             default:
                 Debug.Log(this + " no orientation");
                 return new Vector3(0, 0, 0);
         }
+        return v * delta;
     }
-    
+    protected Vector3 GetLateralVector(int delta)
+    {
+        Vector3 v;
+        switch (Mathf.Round(transform.rotation.eulerAngles.y))
+        {
+            case 0:
+                v = new Vector3(1, 0, 0);
+                break;
+            case 90:
+                v = new Vector3(0, 0, -1);
+                break;
+            case 180:
+                v = new Vector3(-1, 0, 0);
+                break;
+            case 270:
+                v = new Vector3(0, 0, 1);
+                break;
+            default:
+                Debug.Log(this + " no orientation");
+                return new Vector3(0, 0, 0);
+        }
+        return v * delta;
+    }
+
 }

@@ -15,7 +15,6 @@ public class ActionPool : MonoBehaviour
     {
         pool = new Action[poolSize];
     }
-
     public void setDefaultAction(Player p)
     {
         pool[0] = new Forward(p);
@@ -27,7 +26,6 @@ public class ActionPool : MonoBehaviour
        
         setActionsIcon();
     }
-
     public Action GetAction(int i)
     {
         if(i < 0 || i >= poolSize)
@@ -37,7 +35,6 @@ public class ActionPool : MonoBehaviour
         }
         return pool[i];
     }
-
     private void setActionsIcon()
     {
         for(int i = 0; pool.Length > i; i++)
@@ -53,13 +50,14 @@ public class ActionPool : MonoBehaviour
                 case "RotateL":
                     actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[2];
                     break;
-                case "Shoot":
+                case "StopEnergy":
                     actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[3];
                     break;
-                case "StopEnergy":
+                case "Switch":
                     actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[4];
                     break;
-                case "Switch":
+                case "Shoot":
+                    //changer par icone de l'arme équipé
                     actionBox[i].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = listTextures[5];
                     break;
             }
@@ -67,7 +65,10 @@ public class ActionPool : MonoBehaviour
         }
         Debug.Log("OK -> Action Icons");
     }
-
+    public void setWeaponIcon(Texture2D wt)
+    {
+        actionBox[3].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = wt;
+    }
     public void Print()
     {
         Debug.Log("ACTION POOL : " + pool[0].Player);
